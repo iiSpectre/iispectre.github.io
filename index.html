@@ -190,6 +190,44 @@
     </style>
 </head>
 
+<script>
+const tabs = document.querySelectorAll('.tab');
+
+const indicator = document.createElement('div');
+indicator.classList.add('tab-indicator');
+document.querySelector('.tabs').appendChild(indicator);
+
+function moveIndicator(activeTab) {
+    const tabRect = activeTab.getBoundingClientRect();
+    const containerRect = activeTab.parentElement.getBoundingClientRect();
+
+    indicator.style.width = `${tabRect.width}px`;
+    indicator.style.left = `${tabRect.left - containerRect.left}px`;
+}
+
+const activeTab = document.querySelector('.tab.active');
+moveIndicator(activeTab);
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', e => {
+        e.preventDefault();
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        moveIndicator(tab);
+
+        document.body.classList.add('fade-out');
+        setTimeout(() => window.location.href = tab.href, 300);
+    });
+});
+
+window.addEventListener('resize', () => {
+    const active = document.querySelector('.tab.active');
+    if (active) moveIndicator(active);
+});
+</script>
+
+
+	
 <body>
     <nav class="tabs">
         <a href="index.html" class="tab active">About Me</a>
