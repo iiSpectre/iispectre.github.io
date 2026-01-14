@@ -19,7 +19,54 @@
             position: relative;
         }
 
+        .tabs {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #0f172a;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
 
+        .tab {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            padding: 0.25rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .tab:hover {
+            color: #ffffff;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #ffffff;
+            border-radius: 2px;
+        }
+
+        .container {
+            margin-top: 80px;
+        }
+
+        body {
+            transition: opacity 0.3s ease;
+        }
+        body.fade-out {
+            opacity: 0;
+        }
+        
         .container {
             text-align: center;
             animation: fadeIn 2s ease-in-out;
@@ -103,6 +150,10 @@
     </style>
 </head>
 <body>
+    <nav class="tabs">
+        <a href="index.html" class="tab active">About Me</a>
+        <a href="projects.html" class="tab">Projects</a>
+    </nav>
 
     <div class="container">
         <h1>Under Construction 🚧</h1>
@@ -134,5 +185,22 @@
         </div>
     </div>
 
+<script>
+    const tabs = document.querySelectorAll('.tab');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const href = this.href;
+
+            document.body.classList.add('fade-out');
+
+            setTimeout(() => {
+                window.location.href = href;
+            }, 300);
+        });
+    });
+</script>
+    
 </body>
 </html>
