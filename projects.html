@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Projects - Dev</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/Media/favicon.png" type="image/png">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #0f172a;
+            color: #e5e7eb;
+            transition: opacity 0.3s ease;
+        }
+
+        body.fade-out {
+            opacity: 0;
+        }
+
+        .tabs {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #0f172a;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .tab {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            padding: 0.25rem 0;
+            transition: color 0.2s ease;
+        }
+        .tab:hover {
+            color: #ffffff;
+        }
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #ffffff;
+            border-radius: 2px;
+        }
+
+        .container {
+            margin-top: 80px;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="tabs">
+        <a href="index.html" class="tab">About Me</a>
+        <a href="projects.html" class="tab active">Projects</a>
+    </nav>
+
+    <div class="container">
+        <h1>My Projects 🚀</h1>
+
+        <p>
+            I'm currently working on some projects, like custom ROMS for my Galaxy S4 I9500, a repository containing <a href="https://github.com/iiSpectre/Bugdroid-Renders">Bugdroid Renders</a> across various ROMS I inspect, and <a href="https://www.roblox.com/games/96045448107479/Community-And-Axe">Community And Axe</a>, a fangame of ball and axe with many more features, and different community members maps, combined once all finished to make a megacollab map!
+        </p>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.href;
+                document.body.classList.add('fade-out');
+                setTimeout(() => { window.location.href = href; }, 300);
+            });
+        });
+    </script>
+
+</body>
+</html>
