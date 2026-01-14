@@ -6,136 +6,184 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/Media/favicon.png" type="image/png">
+
     <style>
         body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #0f172a;
-    color: #e5e7eb;
-    position: relative;
-    transition: opacity 0.3s ease;
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #0f172a;
+            color: #e5e7eb;
+            position: relative;
+            transition: opacity 0.3s ease;
+        }
+
+        .tabs {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #0f172a;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .tab {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            padding: 0.25rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .tab:hover {
+            color: #fff;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 2px;
+        }
+
+        .container {
+            margin-top: 80px;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .specifics {
+            background-color: #1e293b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .specifics button {
+            background: none;
+            border: none;
+            color: #e5e7eb;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+        }
+
+        .specifics button::after {
+            content: " ▼";
+            float: right;
+            transition: transform 0.3s ease;
+        }
+
+        .specifics.open button::after {
+            transform: rotate(180deg);
+        }
+
+        .specifics-content {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        height 0.75s cubic-bezier(0.25, 0.8, 0.25, 1),
+        opacity 0.45s ease;
 }
 
-.tabs {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #0f172a;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 1rem 0;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-.tab {
-    color: #e5e7eb;
-    text-decoration: none;
-    font-weight: bold;
-    position: relative;
-    padding: 0.25rem 0;
-    transition: color 0.2s ease;
-}
-.tab:hover { color: #fff; }
-.tab.active::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #fff;
-    border-radius: 2px;
-}
 
-.container {
-    margin-top: 80px;
-    text-align: center;
-    animation: fadeIn 2s ease-in-out;
-}
+        .specifics.open .specifics-content {
+            max-height: 1000px;
+            opacity: 1;
+        }
 
-h1 { font-size: 3rem; margin-bottom: 1rem; }
-p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; margin: auto; }
+        .specifics-content p {
+            margin-top: 0.75rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+        .image-row {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
 
-.social-links {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-}
-.social-links img {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-    opacity: 0.85;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-.social-links img:hover {
-    transform: scale(1.15);
-    opacity: 1;
-}
+        .image-row img {
+            width: 180px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+        }
 
-.image-row {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin: 2rem 0;
-}
-.image-row img {
-    width: 180px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 8px;
-}
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
 
-@media (max-width: 600px) {
-    h1 { font-size: 2.2rem; }
-    p { font-size: 1rem; padding: 0 1rem; }
-    .image-row { flex-direction: column; gap: 1rem; }
-    .image-row img { width: 100%; max-width: 150px; }
-    .social-links img { width: 30px; height: 30px; }
-}
+        .social-links img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            opacity: 0.85;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
 
-details.specifics {
-    background-color: #1e293b;
-    padding: 1rem;
-    border-radius: 8px;
-    margin: 1.5rem auto;
-    max-width: 600px;
-    cursor: pointer;
-}
+        .social-links img:hover {
+            transform: scale(1.15);
+            opacity: 1;
+        }
 
-details.specifics summary {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #e5e7eb;
-    list-style: none;
-}
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1rem; padding: 0 1rem; }
 
-details.specifics[open] summary::after {
-    content: " ▲";
-}
+            .image-row {
+                flex-direction: column;
+            }
 
-details.specifics summary::after {
-    content: " ▼";
-    float: right;
-}
+            .image-row img {
+                width: 100%;
+                max-width: 150px;
+            }
 
-details.specifics p {
-    margin-top: 0.75rem;
-    line-height: 1.6;
-    font-size: 1.1rem;
-    color: #e5e7eb;
-}
-        
+            .social-links img {
+                width: 30px;
+                height: 30px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <nav class="tabs">
         <a href="index.html" class="tab active">About Me</a>
@@ -146,13 +194,13 @@ details.specifics p {
         <h1>About Me (Under Construction)</h1>
 
         <p>
-            Hi! I'm Devon, I have a huge interest in things like operating systems
-            (Android, Windows) and any kind of technology at all, 40+ world records across
-            select games, and a love for company mascots like Mitu and Bugdroid!
+            Hi! I'm Devon, I have a huge interest in operating systems, technology,
+            speedrunning, and mascots like Mitu and Bugdroid!
         </p>
-        <div class="container">
-            <details class="specifics">
-                <summary>The Specifics</summary>
+
+        <div class="specifics">
+            <button id="specificsToggle">The Specifics</button>
+            <div class="specifics-content">
                 <p>
                     To get into the specifics, I've had a love for Android and Windows since I was very young. I enjoyed TouchWiz UI on Samsung devices, like the Galaxy Tab 10.1 and Galaxy Tab 2 10.1 since I was 2-3,
                     and looking back, it's still a very comforting and pleasing aesthetic to me. When I was around 7-8, I started flashing custom ROMS for my tablets and phone I had at the time, and also modified them in different ways. 
@@ -164,7 +212,7 @@ details.specifics p {
                     a year or two from now (<a href="https://raw.githubusercontent.com/iiSpectre/Dead-Zebra-Android-Plush-Archive/refs/heads/main/All%20Together.jpg">I have 4 as of right now!</a>). I may also get a
                     Mitu plushie in the near future!
                 </p>
-            </details>
+            </div>
         </div>
 
         <div class="image-row">
@@ -173,44 +221,36 @@ details.specifics p {
         </div>
 
         <div class="social-links">
-            <a href="https://www.youtube.com/@ii_Spectre" target="_blank" rel="noopener noreferrer">
-                <img src="/Media/Icons/youtube.png" alt="YouTube">
-            </a>
-
-            <a href="https://www.speedrun.com/users/ii_Spectre" target="_blank" rel="noopener noreferrer">
-                <img src="/Media/Icons/speedrun.png" alt="Speedrun.com">
-            </a>
-
-            <a href="https://www.tiktok.com/@ii_spectre2" target="_blank" rel="noopener noreferrer">
-                <img src="/Media/Icons/tiktok.png" alt="TikTok">
-            </a>
-
-            <a href="https://github.com/iiSpectre" target="_blank" rel="noopener noreferrer">
-                <img src="/Media/Icons/github.png" alt="GitHub">
-            </a>
-
-            <a href="https://www.roblox.com/users/274799664/profile" target="_blank" rel="noopener noreferrer">
-                <img src="/Media/Icons/roblox.png" alt="Roblox">
-            </a>
+            <a href="https://www.youtube.com/@ii_Spectre" target="_blank"><img src="/Media/Icons/youtube.png"></a>
+            <a href="https://www.speedrun.com/users/ii_Spectre" target="_blank"><img src="/Media/Icons/speedrun.png"></a>
+            <a href="https://www.tiktok.com/@ii_spectre2" target="_blank"><img src="/Media/Icons/tiktok.png"></a>
+            <a href="https://github.com/iiSpectre" target="_blank"><img src="/Media/Icons/github.png"></a>
+            <a href="https://www.roblox.com/users/274799664/profile" target="_blank"><img src="/Media/Icons/roblox.png"></a>
         </div>
     </div>
 
-<script>
-    const tabs = document.querySelectorAll('.tab');
+    <script>
+    const specifics = document.querySelector('.specifics');
+    const toggle = document.getElementById('specificsToggle');
+    const content = specifics.querySelector('.specifics-content');
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function(e) {
-            e.preventDefault();
-            const href = this.href;
+    toggle.addEventListener('click', () => {
+        const isOpen = specifics.classList.contains('open');
 
-            document.body.classList.add('fade-out');
-
-            setTimeout(() => {
-                window.location.href = href;
-            }, 300);
-        });
+        if (isOpen) {
+            content.style.height = content.scrollHeight + 'px';
+            requestAnimationFrame(() => {
+                content.style.height = '0px';
+                content.style.opacity = '0';
+            });
+            specifics.classList.remove('open');
+        } else {
+            specifics.classList.add('open');
+            content.style.height = content.scrollHeight + 'px';
+            content.style.opacity = '1';
+        }
     });
 </script>
-    
+
 </body>
 </html>
