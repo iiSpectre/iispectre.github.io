@@ -109,13 +109,13 @@
         }
 
         .specifics-content {
-    height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition:
-        height 0.75s cubic-bezier(0.25, 0.8, 0.25, 1),
-        opacity 0.45s ease;
-}
+    		height: 0;
+   			overflow: hidden;
+    		opacity: 0;
+    		transition:
+        	height 0.75s cubic-bezier(0.25, 0.8, 0.25, 1),
+        	opacity 0.45s ease;
+		}
 
 
         .specifics.open .specifics-content {
@@ -168,26 +168,39 @@
             p { font-size: 1rem; padding: 0 1rem; }
 
             .image-row {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin: 2rem 0;
-}
+ 			   display: flex;
+ 			   justify-content: center;
+ 			   gap: 1rem;
+ 			   flex-wrap: wrap;
+ 			   margin: 2rem 0;
+			}
 
-.image-row img {
-    width: 45%;
-    max-width: 180px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 8px;
-}
+			.image-row img {
+  			  width: 45%;
+  			  max-width: 180px;
+  			  height: auto;
+  			  object-fit: cover;
+   			 border-radius: 8px;
+			}
 
 
             .social-links img {
                 width: 30px;
                 height: 30px;
             }
+            
+            .bottom-image {
+    			margin-top: 2rem;
+    			text-align: center;
+			}
+
+			.bottom-image img {
+   			 width: 80%;
+   			 max-width: 400px;
+      		 height: auto;
+  			 border-radius: 8px;
+			}
+
         }
     </style>
 </head>
@@ -237,6 +250,10 @@
             <a href="https://www.roblox.com/users/274799664/profile" target="_blank"><img src="/Media/Icons/roblox.png"></a>
         </div>
     </div>
+    
+    	<div class="bottom-image">
+    	<img src="/Media/bugdroid-2008.png" alt="Bugdroid but long">
+	</div>
 
     <script>
     const specifics = document.querySelector('.specifics');
