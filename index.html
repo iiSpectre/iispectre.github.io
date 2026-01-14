@@ -18,6 +18,9 @@
             transition: opacity 0.3s ease;
         }
 
+		body.fade-out {
+    		opacity: 0;
+		}
         .tabs {
             position: fixed;
             top: 0;
@@ -191,6 +194,23 @@
     </style>
 </head>
 
+<script>
+const tabs = document.querySelectorAll('.tab');
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.href;
+
+        document.body.classList.add('fade-out');
+
+        setTimeout(() => {
+            window.location.href = href;
+        }, 300);
+    });
+});
+</script>
+	
 <body>
     <nav class="tabs">
         <a href="index.html" class="tab active">About Me</a>
