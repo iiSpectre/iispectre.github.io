@@ -43,17 +43,53 @@
                 transform: translateY(0);
             }
         }
+
+.social-links {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-links img {
+    width: 36px;        /* adjust size here */
+    height: 36px;
+    object-fit: contain;
+    opacity: 0.85;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-links img:hover {
+    transform: scale(1.15);
+    opacity: 1;
+}
+
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>
-            Under Construction 🚧.
-        </h1>
+        <h1>Under Construction 🚧</h1>
+
         <p>
-            Hi! I'm Devon, I have a huge interest in things like operating systems (Android, Windows) and any technology at all, 40+ world records across select games, and a love for company mascots like Mitu and Bugdroid!
+            Hi! I'm Devon, I have a huge interest in things like operating systems
+            (Android, Windows) and any technology at all, 40+ world records across
+            select games, and a love for company mascots like Mitu and Bugdroid!
         </p>
+
+        <div class="social-links">
+            <a href="https://www.youtube.com/@ii_Spectre" target="_blank" rel="noopener noreferrer">
+                <img src="/Media/Icons/youtube.png" alt="YouTube">
+            </a>
+
+            <a href="https://www.speedrun.com/users/ii_Spectre" target="_blank" rel="noopener noreferrer">
+                <img src="/Media/Icons/speedrun.png" alt="Speedrun.com">
+            </a>
+
+            <a href="https://www.tiktok.com/@ii_spectre2" target="_blank" rel="noopener noreferrer">
+                <img src="/Media/Icons/tiktok.png" alt="TikTok">
+            </a>
+        </div>
     </div>
 
 </body>
