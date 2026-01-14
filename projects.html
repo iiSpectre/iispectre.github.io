@@ -96,20 +96,7 @@
                 font-size: 1rem;
             }
         }
-
-        .tiktok-video {
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-            margin: 1rem 0;
-        }
-
-        .tiktok-video iframe {
-            border: none;
-            width: 100%;
-            height: 100%;
-        }
-
+        
     </style>
 </head>
 <body>
@@ -128,19 +115,12 @@
         
     </div>
 
-    <div class="tiktok-video">
-      <iframe 
-          src="https://www.tiktok.com/embed/7590173474157645087?autoplay=0" 
-          width="325" 
-          height="575" 
-          frameborder="0" 
-          allowfullscreen 
-          scrolling="no">
-      </iframe>
+    <div class="tiktok-wrapper">
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@ii_spectre2/video/7590173474157645087" data-video-id="7590173474157645087" style="max-width: 605px;min-width: 325px;" ></blockquote>
     </div>
 
-
 <script async src="https://www.tiktok.com/embed.js"></script>
+
 
     <script>
         const tabs = document.querySelectorAll('.tab');
