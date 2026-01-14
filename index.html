@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <title>Dev</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/Media/favicon.png" type="image/png">
     <style>
         body {
             margin: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #0f172a;
             color: #e5e7eb;
             font-family: Arial, Helvetica, sans-serif;
+            flex-direction: column;
         }
 
         .container {
@@ -33,6 +35,19 @@
             line-height: 1.6;
         }
 
+        .profile-image {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            width: 160px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            opacity: 0.95;
+            animation: fadeIn 2s ease-in-out;
+            animation-delay: 0.4s;
+            animation-fill-mode: both;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -44,26 +59,46 @@
             }
         }
 
-.social-links {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-}
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
 
-.social-links img {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-    opacity: 0.85;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
+        .social-links img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            opacity: 0.85;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
 
-.social-links img:hover {
-    transform: scale(1.15);
-    opacity: 1;
-}
+        .social-links img:hover {
+            transform: scale(1.15);
+            opacity: 1;
+        }
 
+        @media (max-width: 600px) {
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .profile-image {
+                width: 120px;
+            }
+
+            .social-links img {
+                width: 30px;
+                height: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -91,9 +126,9 @@
             <a href="https://www.tiktok.com/@ii_spectre2" target="_blank" rel="noopener noreferrer">
                 <img src="/Media/Icons/tiktok.png" alt="TikTok">
             </a>
-            
+
             <a href="https://github.com/iiSpectre" target="_blank" rel="noopener noreferrer">
-                <img src="/Media/Icons/github.png" alt="Github">
+                <img src="/Media/Icons/github.png" alt="GitHub">
             </a>
         </div>
     </div>
