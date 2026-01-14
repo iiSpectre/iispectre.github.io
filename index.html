@@ -101,6 +101,38 @@ p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; margin: auto; }
     .image-row img { width: 100%; max-width: 150px; }
     .social-links img { width: 30px; height: 30px; }
 }
+
+details.specifics {
+    background-color: #1e293b;   /* slightly lighter than body */
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1.5rem auto;
+    max-width: 600px;
+    cursor: pointer;
+}
+
+details.specifics summary {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #e5e7eb;
+    list-style: none;
+}
+
+details.specifics[open] summary::after {
+    content: " ▲";   /* arrow up when open */
+}
+
+details.specifics summary::after {
+    content: " ▼";   /* arrow down when closed */
+    float: right;
+}
+
+details.specifics p {
+    margin-top: 0.75rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #e5e7eb;
+}
         
     </style>
 </head>
@@ -118,15 +150,24 @@ p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; margin: auto; }
             (Android, Windows) and any kind of technology at all, 40+ world records across
             select games, and a love for company mascots like Mitu and Bugdroid!
         </p>
+        
+        <div class="container">
+            <h1>About Me</h1>
 
-         <p>
-            To get into the specifics, I've had a love for Android and Windows since I was very young. I enjoyed TouchWiz UI on Samsung devices, like the Galaxy Tab 10.1 and Galaxy Tab 2 10.1 since I was 2-3,
-            and looking back, it's still a very comforting and pleasing aesthetic to me. I also have enjoyed messing with Windows at around 7-8, using custom ISO's and modifying stock ones as well.
-            I also started using different operating systems in Virtualbox around the same time, testing out various Linux distributions and Windows versions. Around ~2023, I found a game on Roblox called "ball and axe"
-            from a friend, and it became the first game I persued to become extremely good at, getting my first world record in under a month of playing. Now, I hold a majority of the world records there, and many more
-            in similar-styled games, like Getting Over It: Remastered, and block and hammer. I've settled down on gaming, and now have focused more on my love for Android, and it's mascot Bugdroid especially, Mitu,
-            the Xiaomi mascot, and college!
-        </p>
+            <p>Some intro text here...</p>
+
+            <details class="specifics">
+                <summary>The Specifics</summary>
+                <p>
+                    To get into the specifics, I've had a love for Android and Windows since I was very young. I enjoyed TouchWiz UI on Samsung devices, like the Galaxy Tab 10.1 and Galaxy Tab 2 10.1 since I was 2-3,
+                    and looking back, it's still a very comforting and pleasing aesthetic to me. I also have enjoyed messing with Windows at around 7-8, using custom ISO's and modifying stock ones as well.
+                    I also started using different operating systems in Virtualbox around the same time, testing out various Linux distributions and Windows versions. Around ~2023, I found a game on Roblox called "ball and axe"
+                    from a friend, and it became the first game I persued to become extremely good at, getting my first world record in under a month of playing. Now, I hold a majority of the world records there, and many more
+                    in similar-styled games, like Getting Over It: Remastered, and block and hammer. I've settled down on gaming, and now have focused more on my love for Android, and it's mascot Bugdroid especially, Mitu,
+                    the Xiaomi mascot, and college!
+                </p>
+            </details>
+        </div>
 
         <div class="image-row">
             <img src="/Media/mitusamsung.jpg" alt="Mitu">
