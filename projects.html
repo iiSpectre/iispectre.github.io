@@ -16,11 +16,12 @@
             color: #e5e7eb;
             position: relative;
             transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        body.fade-out {
-            opacity: 0;
-        }
+        body.fade-out { opacity: 0; }
 
         .tabs {
             position: fixed;
@@ -63,19 +64,8 @@
             padding: 0 1rem;
         }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        h1 { font-size: 3rem; margin-bottom: 1rem; }
+        p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 1rem; }
 
         ul {
             font-family: inherit;
@@ -87,14 +77,9 @@
             text-align: left;
         }
 
-        ul li {
-            margin-bottom: 0.75rem;
-        }
+        ul li { margin-bottom: 0.75rem; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .social-links {
             margin-top: 2rem;
@@ -111,16 +96,12 @@
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
-        .social-links img:hover {
-            transform: scale(1.15);
-            opacity: 1;
-        }
+        .social-links img:hover { transform: scale(1.15); opacity: 1; }
 
         @media (max-width: 600px) {
             h1 { font-size: 2.2rem; }
             p { font-size: 1rem; padding: 0 1rem; }
-            ul { font-size: 1rem; max-width: 100%; padding-left: 1.2rem; }
-            .image-row img { width: 45%; max-width: 180px; }
+            ul { font-size: 1rem; padding-left: 1.2rem; }
             .social-links img { width: 30px; height: 30px; }
         }
     </style>
@@ -143,7 +124,6 @@
             <li><a href="https://github.com/iiSpectre/APK-Extraction-Script">An APK Extraction Tool</a>, which primarily grabs media, like images, videos, and audio, and puts them into categorized folders. One of the main reasons I made it was to find any renders of Bugdroid inside, which has helped me with the previously mentioned project!</li>
             <li>As well as <a href="https://www.roblox.com/games/96045448107479/Community-And-Axe">Community And Axe</a>, a fangame of ball and axe with many more features, and different community members' maps. Once everyone completes their part, it'll be a huge megacollab from all the members in the community!</li>
         </ul>
-
 
         <div class="tiktok-wrapper">
             <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@ii_spectre2/video/7590173474157645087" data-video-id="7590173474157645087" style="max-width: 605px; min-width: 325px;">
@@ -168,17 +148,12 @@
 
     <script>
         const tabs = document.querySelectorAll('.tab');
-
         tabs.forEach(tab => {
             tab.addEventListener('click', function(e) {
                 e.preventDefault();
                 const href = this.href;
-
                 document.body.classList.add('fade-out');
-
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 300);
+                setTimeout(() => { window.location.href = href; }, 300);
             });
         });
     </script>
