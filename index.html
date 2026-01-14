@@ -231,25 +231,29 @@
                 setTimeout(() => { window.location.href = href; }, 300);
             });
         });
-        const specifics = document.querySelector('.specifics');
-        const toggle = document.getElementById('specificsToggle');
-        const content = specifics.querySelector('.specifics-content');
+const specifics = document.querySelector('.specifics');
+const toggle = document.getElementById('specificsToggle');
+const content = specifics.querySelector('.specifics-content');
 
-        toggle.addEventListener('click', () => {
-            const isOpen = specifics.classList.contains('open');
-            if (isOpen) {
-                content.style.height = content.scrollHeight + 'px';
-                requestAnimationFrame(() => {
-                    content.style.height = '0px';
-                    content.style.opacity = '0';
-                });
-                specifics.classList.remove('open');
-            } else {
-                specifics.classList.add('open');
-                content.style.height = content.scrollHeight + 'px';
-                content.style.opacity = '1';
-            }
+toggle.addEventListener('click', () => {
+    const isOpen = specifics.classList.contains('open');
+
+    if (isOpen) {
+        content.style.height = content.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+            content.style.height = '0px';
+            content.style.opacity = '0';
         });
+        specifics.classList.remove('open');
+    } else {
+        specifics.classList.add('open');
+        content.style.height = '0px';
+        requestAnimationFrame(() => {
+            content.style.height = content.scrollHeight + 'px';
+            content.style.opacity = '1';
+        });
+    }
+});
     </script>
 </body>
 </html>
