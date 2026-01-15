@@ -13,7 +13,6 @@
             font-family: Arial, Helvetica, sans-serif;
             background-color: #0f172a;
             color: #e5e7eb;
-            position: relative;
             transition: opacity 0.3s ease;
             text-align: center;
         }
@@ -39,9 +38,10 @@
             font-weight: bold;
             position: relative;
             padding: 0.25rem 0;
-            transition: color 0.2s ease;
         }
+
         .tab:hover { color: #fff; }
+
         .tab.active::after {
             content: '';
             position: absolute;
@@ -55,14 +55,19 @@
 
         .container {
             margin: 80px auto 0 auto;
-            text-align: center;
-            animation: fadeIn 2s ease-in-out;
             max-width: 800px;
             padding: 0 1rem;
+            animation: fadeIn 1.2s ease;
         }
 
         h1 { font-size: 3rem; margin-bottom: 1rem; }
-        p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; margin: 0 auto 1rem auto; }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 1rem auto;
+            line-height: 1.6;
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -94,66 +99,80 @@
             float: right;
             transition: transform 0.3s ease;
         }
-        .specifics.open button::after { transform: rotate(180deg); }
+
+        .specifics.open button::after {
+            transform: rotate(180deg);
+        }
 
         .specifics-content {
             height: 0;
             overflow: hidden;
             opacity: 0;
-            transition: height 0.75s cubic-bezier(0.25,0.8,0.25,1), opacity 0.45s ease;
+            transition:
+                height 0.6s cubic-bezier(0.25, 0.8, 0.25, 1),
+                opacity 0.3s ease;
         }
-        .specifics.open .specifics-content {
-            height: auto;
-            opacity: 1;
+
+        .specifics-content p {
+            margin-top: 0.75rem;
+            font-size: 1.1rem;
         }
-        .specifics-content p { margin-top: 0.75rem; font-size: 1.1rem; line-height: 1.6; }
 
         .image-carousel {
+            margin: 2.5rem 0;
             overflow-x: auto;
             overflow-y: hidden;
-            white-space: nowrap;
-            padding: 2rem 0;
-            scroll-behavior: smooth;
-            display: flex;
-            justify-content: center;
+            cursor: grab;
+            scrollbar-width: none;
+            touch-action: pan-x;
         }
+
+        .image-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .image-carousel:active {
+            cursor: grabbing;
+        }
+
         .image-track {
             display: flex;
-            align-items: center;
-            gap: 2rem;
-            padding: 0 2rem;
+            gap: 1.5rem;
+            padding: 1rem 50vw;
         }
+
         .image-track img {
-            height: 180px;
-            width: auto;
+            width: 180px;
             flex-shrink: 0;
             border-radius: 8px;
-            transition: transform 0.3s ease;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            will-change: transform;
         }
-        .image-carousel::-webkit-scrollbar { height: 8px; }
-        .image-carousel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
 
         .social-links {
-            margin-top: 2rem;
+            margin: 2rem 0;
             display: flex;
             justify-content: center;
             gap: 1.5rem;
             flex-wrap: wrap;
         }
+
         .social-links img {
             width: 36px;
             height: 36px;
-            object-fit: contain;
             opacity: 0.85;
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
-        .social-links img:hover { transform: scale(1.15); opacity: 1; }
+
+        .social-links img:hover {
+            transform: scale(1.15);
+            opacity: 1;
+        }
 
         @media (max-width: 600px) {
             h1 { font-size: 2.2rem; }
-            p { font-size: 1rem; padding: 0 1rem; }
-            .image-track img { height: 150px; }
-            .social-links img { width: 30px; height: 30px; }
+            p { font-size: 1rem; }
+            .image-track img { width: 150px; }
         }
     </style>
 </head>
@@ -165,7 +184,7 @@
     </nav>
 
     <div class="container">
-        <h1>About Me (Under Construction)</h1>
+        <h1>About Me</h1>
 
         <p>
             Hi! I'm Devon, I have a huge interest in things like operating systems
@@ -209,13 +228,11 @@
     </div>
 
     <script>
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function(e) {
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', e => {
                 e.preventDefault();
-                const href = this.href;
                 document.body.classList.add('fade-out');
-                setTimeout(() => { window.location.href = href; }, 300);
+                setTimeout(() => window.location.href = tab.href, 300);
             });
         });
 
@@ -224,41 +241,64 @@
         const content = specifics.querySelector('.specifics-content');
 
         toggle.addEventListener('click', () => {
-            const isOpen = specifics.classList.contains('open');
-            if (isOpen) {
+            const open = specifics.classList.toggle('open');
+            if (open) {
                 content.style.height = content.scrollHeight + 'px';
-                requestAnimationFrame(() => {
-                    content.style.height = '0px';
-                    content.style.opacity = '0';
-                });
-                specifics.classList.remove('open');
+                content.style.opacity = '1';
             } else {
-                specifics.classList.add('open');
                 content.style.height = '0px';
-                requestAnimationFrame(() => {
-                    content.style.height = content.scrollHeight + 'px';
-                    content.style.opacity = '1';
-                });
+                content.style.opacity = '0';
             }
         });
 
         const carousel = document.querySelector('.image-carousel');
-        const images = document.querySelectorAll('.image-track img');
+        const images = carousel.querySelectorAll('img');
 
-        function scaleImages() {
-            const center = carousel.scrollLeft + carousel.offsetWidth / 2;
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        function startDrag(x) {
+            isDown = true;
+            startX = x;
+            scrollLeft = carousel.scrollLeft;
+        }
+
+        function drag(x) {
+            if (!isDown) return;
+            const walk = (x - startX) * 1.5;
+            carousel.scrollLeft = scrollLeft - walk;
+        }
+
+        function stopDrag() {
+            isDown = false;
+        }
+
+        carousel.addEventListener('mousedown', e => startDrag(e.pageX));
+        carousel.addEventListener('mousemove', e => drag(e.pageX));
+        carousel.addEventListener('mouseup', stopDrag);
+        carousel.addEventListener('mouseleave', stopDrag);
+
+        carousel.addEventListener('touchstart', e => startDrag(e.touches[0].pageX));
+        carousel.addEventListener('touchmove', e => drag(e.touches[0].pageX));
+        carousel.addEventListener('touchend', stopDrag);
+
+        function updateScale() {
+            const center = carousel.offsetWidth / 2;
+
             images.forEach(img => {
-                const imgCenter = img.offsetLeft + img.offsetWidth / 2;
+                const rect = img.getBoundingClientRect();
+                const imgCenter = rect.left + rect.width / 2;
                 const distance = Math.abs(center - imgCenter);
-                const maxDistance = carousel.offsetWidth / 2;
-                const scale = Math.max(0.7, 1 - (distance / maxDistance) * 0.3);
+                const scale = Math.max(0.8, 1 - distance / 600);
+
                 img.style.transform = `scale(${scale})`;
+                img.style.opacity = scale;
             });
         }
 
-        carousel.addEventListener('scroll', scaleImages);
-        window.addEventListener('resize', scaleImages);
-        scaleImages();
+        carousel.addEventListener('scroll', updateScale);
+        window.addEventListener('load', updateScale);
     </script>
 </body>
 </html>
