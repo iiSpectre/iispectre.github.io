@@ -183,3 +183,74 @@ ul li {
     .image-track img { width: 150px; }
     .social-links img { width: 30px; height: 30px; }
 }
+
+.accomplishments {
+    position: relative;
+    max-width: 800px;
+    margin: 2.5rem auto;
+    background-color: var(--panel);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.accomplishments-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.accomplishment-slide {
+    min-width: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.accomplishment-slide img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.accomplishments-arrow {
+    position: absolute;
+    bottom: 12px;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.accomplishments-arrow:hover {
+    opacity: 1;
+}
+
+.accomplishments-arrow.left {
+    left: 16px;
+}
+
+.accomplishments-arrow.right {
+    right: 16px;
+}
+
+.accomplishments-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0 1rem;
+}
+
+.accomplishments-dots span {
+    width: 10px;
+    height: 10px;
+    background-color: #64748b;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.accomplishments-dots span.active {
+    background-color: var(--accent);
+    transform: scale(1.2);
+}
