@@ -66,7 +66,7 @@
 
             <div class="accomplishment-slide">
                 <img src="/Media/Screenshot_2013-12-31-19-07-51.png" alt="My Custom ROM">
-                <p>I have a big involvement in personal projects regarding Android, and this is my first fully-fledged ROM I made for my own device! </p>
+                <p>I have a big involvement in personal projects regarding Android, and this is my first fully-fledged ROM I made for my own device! I debloated it to an extent and added my own custom wallpaper, it's experimental, but everything works just fine.</p>
             </div>
         </div>
 
@@ -114,7 +114,16 @@ function update() {
 }
 
 function goTo(i) {
-    index = Math.max(0, Math.min(i, slides.length - 1));
+    const total = slides.length;
+
+    if (i < 0) {
+        index = total - 1;
+    } else if (i >= total) {
+        index = 0;
+    } else {
+        index = i;
+    }
+
     update();
 }
 
