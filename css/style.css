@@ -187,7 +187,7 @@ ul li {
 .accomplishments {
     position: relative;
     max-width: 800px;
-    margin: 2.5rem auto;
+    margin: 3rem auto 0 auto;
     background-color: var(--panel);
     border-radius: 12px;
     overflow: hidden;
