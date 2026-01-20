@@ -88,6 +88,7 @@ let velocity = 0;
 let lastX = 0;
 let lastTime = 0;
 let setWidth = 0;
+let animating = false;
 
 function calcWidth() {
     setWidth = imgs.length / 2 * (imgs[0].offsetWidth + 24);
@@ -122,25 +123,30 @@ function down(x) {
     startX = x - currentX;
     lastX = x;
     lastTime = performance.now();
+    velocity = 0;
 }
 
 function move(x) {
     if (!isDown) return;
-    currentX = x - startX;
     const now = performance.now();
     velocity = (x - lastX) / (now - lastTime);
     lastX = x;
     lastTime = now;
+    currentX = x - startX;
     apply();
 }
 
 function up() {
     isDown = false;
-    momentum();
+    if (!animating) requestAnimationFrame(momentum);
 }
 
 function momentum() {
-    if (Math.abs(velocity) < 0.002) return;
+    animating = true;
+    if (Math.abs(velocity) < 0.001) {
+        animating = false;
+        return;
+    }
     currentX += velocity * 16;
     velocity *= 0.95;
     apply();
