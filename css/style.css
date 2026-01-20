@@ -184,10 +184,32 @@ ul li {
     .social-links img { width: 30px; height: 30px; }
 }
 
+.accomplishments-wrapper {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+}
+
+.accomplishments-mascot {
+    width: 260px;
+    max-width: 30vw;
+    height: auto;
+    user-select: none;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
 .accomplishments {
     position: relative;
-    max-width: 800px;
-    margin: 3rem auto 0 auto;
+    flex: 1;
+    max-width: 700px;
+    margin-top: 3rem;
     background-color: var(--panel);
     border-radius: 12px;
     overflow: hidden;
@@ -208,6 +230,24 @@ ul li {
     max-width: 100%;
     border-radius: 8px;
     margin-bottom: 1rem;
+}
+
+.video-embed {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 1.5rem auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 
 .accomplishments-arrow {
@@ -255,77 +295,31 @@ ul li {
     transform: scale(1.2);
 }
 
-.accomplishments-wrapper {
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3rem;
-    max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 1rem;
-}
-
-.accomplishments-mascot {
-    width: 260px;
-    max-width: 30vw;
-    height: auto;
-    user-select: none;
-    pointer-events: none;
-}
-
-.accomplishments {
-    flex: 1;
-    max-width: 700px;
-}
-
-@media (max-width: 800px) {
+@media (max-width: 600px) {
     .accomplishments-wrapper {
         flex-direction: column;
+        gap: 1rem;
+        align-items: center;
     }
 
     .accomplishments-mascot {
         width: 200px;
         max-width: 70%;
-        margin-bottom: 1rem;
-    }
-}
-
-.video-embed {
-    position: relative;
-    width: 100%;
-    max-width: 720px;
-    margin: 1.5rem auto;
-    aspect-ratio: 16 / 9;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.video-embed iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-@media (max-width: 600px) {
-
-    .accomplishments-wrapper {
-        gap: 1.25rem;
+        margin-bottom: 0.5rem;
     }
 
     .accomplishments {
-        margin-top: 0.75rem;
+        max-width: 100%;
+        margin-top: 0.5rem;
     }
 
-    .accomplishments-mascot {
-        margin-bottom: 0;
+    .accomplishments-track {
+        width: 100%;
     }
-    
+
     .accomplishment-slide {
-        padding: 1rem;
+        min-width: 100%;
+        padding: 1rem 0.75rem;
     }
 
     .accomplishment-slide h2 {
@@ -348,7 +342,7 @@ ul li {
     }
 
     .video-embed iframe {
-        height: 200px;
+        height: 180px;
     }
 
     .accomplishments-arrow {
