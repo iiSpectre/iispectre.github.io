@@ -309,3 +309,53 @@ ul li {
     height: 100%;
     border: 0;
 }
+
+@media (max-width: 600px) {
+
+    .accomplishments {
+        margin-top: 1.5rem;
+        max-width: 100%;
+        border-radius: 10px;
+    }
+
+    .accomplishment-slide {
+        padding: 1rem;
+    }
+
+    .accomplishment-slide h2 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .accomplishment-slide p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .accomplishment-slide img {
+        margin-bottom: 0.75rem;
+    }
+
+    .video-embed {
+        margin: 0.75rem auto;
+        border-radius: 10px;
+    }
+
+    .video-embed iframe {
+        height: 200px;
+    }
+
+    .accomplishments-arrow {
+        font-size: 1.6rem;
+        bottom: 8px;
+    }
+
+    .accomplishments-dots {
+        padding-bottom: 0.75rem;
+    }
+
+    .accomplishments-dots span {
+        width: 8px;
+        height: 8px;
+    }
+}
