@@ -312,10 +312,12 @@ ul li {
 
 @media (max-width: 600px) {
 
+    .accomplishments-wrapper {
+        gap: 1.25rem;
+    }
+
     .accomplishments {
-        margin-top: 1.5rem;
-        max-width: 100%;
-        border-radius: 10px;
+        margin-top: 0.75rem;
     }
 
     .accomplishment-slide {
