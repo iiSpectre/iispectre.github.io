@@ -320,6 +320,10 @@ ul li {
         margin-top: 0.75rem;
     }
 
+    .accomplishments-mascot {
+        margin-bottom: 0;
+    }
+    
     .accomplishment-slide {
         padding: 1rem;
     }
