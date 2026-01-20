@@ -78,21 +78,33 @@ toggle.onclick = () => {
 const track = document.querySelector('.image-track');
 let imgs = Array.from(track.children);
 
+imgs.forEach(img => track.appendChild(img.cloneNode(true)));
+imgs = Array.from(track.children);
+
 let isDown = false;
 let startX = 0;
 let currentX = 0;
 let velocity = 0;
 let lastX = 0;
 let lastTime = 0;
+let setWidth = 0;
 let animating = false;
 
-imgs.forEach(img => track.appendChild(img.cloneNode(true)));
-imgs = Array.from(track.children);
+function calcWidth() {
+    setWidth = imgs.length / 2 * (imgs[0].offsetWidth + 24);
+}
+window.addEventListener('load', calcWidth);
+window.addEventListener('resize', calcWidth);
+
+function wrap() {
+    if (currentX < -setWidth) currentX += setWidth;
+    if (currentX > 0) currentX -= setWidth;
+}
 
 function apply() {
+    wrap();
     track.style.transform = `translateX(${currentX}px)`;
     scaleImages();
-    recycleImages();
 }
 
 function scaleImages() {
@@ -139,25 +151,6 @@ function momentum() {
     velocity *= 0.95;
     apply();
     requestAnimationFrame(momentum);
-}
-
-function recycleImages() {
-    const first = imgs[0];
-    const last = imgs[imgs.length - 1];
-    const firstRect = first.getBoundingClientRect();
-    const lastRect = last.getBoundingClientRect();
-
-    if (firstRect.right < 0) {
-        currentX += firstRect.width + 24;
-        track.appendChild(first);
-        imgs.push(imgs.shift());
-    }
-
-    if (lastRect.left > window.innerWidth) {
-        currentX -= lastRect.width + 24; // gap
-        track.insertBefore(last, first);
-        imgs.unshift(imgs.pop());
-    }
 }
 
 track.addEventListener('mousedown', e => down(e.clientX));
