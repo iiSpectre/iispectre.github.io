@@ -91,10 +91,16 @@ let setWidth = 0;
 let rafId = null;
 
 function calcWidth() {
-    if (!imgs[0]) return;
-    const gap = 24;
-    setWidth = (imgs.length / 2) * (imgs[0].offsetWidth + gap);
+    const originals = imgs.length / 2;
+    let width = 0;
+
+    for (let i = 0; i < originals; i++) {
+        width += imgs[i].getBoundingClientRect().width;
+    }
+
+    setWidth = width;
 }
+
 window.addEventListener('load', calcWidth);
 window.addEventListener('resize', calcWidth);
 
