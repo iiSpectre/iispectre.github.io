@@ -78,11 +78,7 @@ toggle.onclick = () => {
 const track = document.querySelector('.image-track');
 let imgs = Array.from(track.children);
 
-imgs.forEach(img => {
-    if (!img.complete) {
-        img.addEventListener('load', calcWidth);
-    }
-});
+imgs.forEach(img => track.appendChild(img.cloneNode(true)));
 imgs = Array.from(track.children);
 
 let isDragging = false;
@@ -95,16 +91,10 @@ let setWidth = 0;
 let rafId = null;
 
 function calcWidth() {
-    const originals = imgs.length / 2;
-    let width = 0;
-
-    for (let i = 0; i < originals; i++) {
-        width += imgs[i].getBoundingClientRect().width;
-    }
-
-    setWidth = width;
+    if (!imgs[0]) return;
+    const gap = 24;
+    setWidth = (imgs.length / 2) * (imgs[0].offsetWidth + gap);
 }
-
 window.addEventListener('load', calcWidth);
 window.addEventListener('resize', calcWidth);
 
