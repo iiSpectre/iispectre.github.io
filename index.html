@@ -88,10 +88,12 @@ let velocity = 0;
 let lastX = 0;
 let lastTime = 0;
 let setWidth = 0;
-let animating = false;
+let rafId = null;
 
 function calcWidth() {
-    setWidth = imgs.length / 2 * (imgs[0].offsetWidth + 24);
+    if (!imgs[0]) return;
+    const gap = 24;
+    setWidth = (imgs.length / 2) * (imgs[0].offsetWidth + gap);
 }
 window.addEventListener('load', calcWidth);
 window.addEventListener('resize', calcWidth);
@@ -118,8 +120,16 @@ function scaleImages() {
     });
 }
 
+function cancelMomentum() {
+    if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+    }
+}
+
 function down(x) {
     isDown = true;
+    cancelMomentum();
     startX = x - currentX;
     lastX = x;
     lastTime = performance.now();
@@ -128,29 +138,41 @@ function down(x) {
 
 function move(x) {
     if (!isDown) return;
+
     const now = performance.now();
-    velocity = (x - lastX) / (now - lastTime);
+    const dt = now - lastTime;
+
+    if (dt > 0) {
+        velocity = (x - lastX) / dt;
+        velocity = Math.max(Math.min(velocity, 1), -1);
+
     lastX = x;
     lastTime = now;
     currentX = x - startX;
+
     apply();
 }
 
 function up() {
     isDown = false;
-    if (!animating) requestAnimationFrame(momentum);
+    startMomentum();
 }
 
-function momentum() {
-    animating = true;
-    if (Math.abs(velocity) < 0.001) {
-        animating = false;
-        return;
+function startMomentum() {
+    function frame() {
+        if (Math.abs(velocity) < 0.001) {
+            velocity = 0;
+            rafId = null;
+            return;
+        }
+
+        currentX += velocity * 16;
+        velocity *= 0.95;
+        apply();
+        rafId = requestAnimationFrame(frame);
     }
-    currentX += velocity * 16;
-    velocity *= 0.95;
-    apply();
-    requestAnimationFrame(momentum);
+
+    if (!rafId) rafId = requestAnimationFrame(frame);
 }
 
 track.addEventListener('mousedown', e => down(e.clientX));
