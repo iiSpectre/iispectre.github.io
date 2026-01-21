@@ -81,7 +81,7 @@ let imgs = Array.from(track.children);
 imgs.forEach(img => track.appendChild(img.cloneNode(true)));
 imgs = Array.from(track.children);
 
-let isDown = false;
+let isDragging = false;
 let startX = 0;
 let currentX = 0;
 let velocity = 0;
@@ -99,8 +99,9 @@ window.addEventListener('load', calcWidth);
 window.addEventListener('resize', calcWidth);
 
 function wrap() {
-    if (currentX < -setWidth) currentX += setWidth;
-    if (currentX > 0) currentX -= setWidth;
+    if (!setWidth) return;
+    currentX = ((currentX % setWidth) + setWidth) % setWidth;
+    currentX -= setWidth;
 }
 
 function apply() {
@@ -120,7 +121,7 @@ function scaleImages() {
     });
 }
 
-function cancelMomentum() {
+function stopMomentum() {
     if (rafId) {
         cancelAnimationFrame(rafId);
         rafId = null;
@@ -128,8 +129,8 @@ function cancelMomentum() {
 }
 
 function down(x) {
-    isDown = true;
-    cancelMomentum();
+    isDragging = true;
+    stopMomentum();
     startX = x - currentX;
     lastX = x;
     lastTime = performance.now();
@@ -137,7 +138,7 @@ function down(x) {
 }
 
 function move(x) {
-    if (!isDown) return;
+    if (!isDragging) return;
 
     const now = performance.now();
     const dt = now - lastTime;
@@ -155,13 +156,14 @@ function move(x) {
 }
 
 function up() {
-    isDown = false;
+    if (!isDragging) return;
+    isDragging = false;
     startMomentum();
 }
 
 function startMomentum() {
     function frame() {
-        if (Math.abs(velocity) < 0.001) {
+        if (Math.abs(velocity) < 0.002) {
             velocity = 0;
             rafId = null;
             return;
@@ -173,7 +175,7 @@ function startMomentum() {
         rafId = requestAnimationFrame(frame);
     }
 
-    if (!rafId) rafId = requestAnimationFrame(frame);
+    rafId = requestAnimationFrame(frame);
 }
 
 track.addEventListener('mousedown', e => down(e.clientX));
