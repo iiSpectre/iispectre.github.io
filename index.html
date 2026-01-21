@@ -78,7 +78,11 @@ toggle.onclick = () => {
 const track = document.querySelector('.image-track');
 let imgs = Array.from(track.children);
 
-imgs.forEach(img => track.appendChild(img.cloneNode(true)));
+imgs.forEach(img => {
+    if (!img.complete) {
+        img.addEventListener('load', calcWidth);
+    }
+});
 imgs = Array.from(track.children);
 
 let isDragging = false;
