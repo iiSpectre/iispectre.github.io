@@ -145,6 +145,7 @@ function move(x) {
     if (dt > 0) {
         velocity = (x - lastX) / dt;
         velocity = Math.max(Math.min(velocity, 1), -1);
+    }
 
     lastX = x;
     lastTime = now;
