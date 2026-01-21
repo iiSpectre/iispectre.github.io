@@ -150,10 +150,14 @@ ul li {
 
 .image-track img {
     width: 180px;
+    height: 180px;
+    object-fit: contain;
+
     flex-shrink: 0;
     border-radius: 8px;
     user-select: none;
     pointer-events: none;
+
     transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
