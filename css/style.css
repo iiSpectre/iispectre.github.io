@@ -168,9 +168,11 @@ ul li {
 .social-links img {
     width: 36px;
     height: 36px;
+    object-fit: contain;
     opacity: 0.85;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
+
 
 .social-links img:hover {
     transform: scale(1.15);
