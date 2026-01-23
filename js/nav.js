@@ -27,7 +27,6 @@ fetch('/partials/nav.html')
             indicator.style.opacity = '1';
 
             if (instant) {
-                // Force layout before re-enabling transitions
                 indicator.offsetHeight;
 
                 indicator.style.transition =
