@@ -20,7 +20,7 @@ body.fade-out {
 }
 
 .tabs {
-    position: fixed;
+    position: relative;
     top: 0;
     width: 100%;
     background-color: var(--bg);
