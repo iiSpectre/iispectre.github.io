@@ -47,6 +47,8 @@ body.fade-out {
 .tab-indicator {
     position: absolute;
     bottom: 0;
+    left: 0;
+
     height: 2px;
     background: var(--accent);
     border-radius: 2px;
@@ -54,10 +56,10 @@ body.fade-out {
     width: 0;
     transform: translateX(0);
 
+    transition: transform 0.35s ease, width 0.35s ease;
+    pointer-events: none;
     opacity: 0;
-    transition: none;
 }
-
 
 .container {
     margin: 80px auto 0 auto;
