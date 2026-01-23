@@ -20,7 +20,7 @@ body.fade-out {
 }
 
 .tabs {
-    position: relative;
+    position: fixed;
     top: 0;
     width: 100%;
     background-color: var(--bg);
@@ -30,6 +30,12 @@ body.fade-out {
     padding: 1rem 0;
     z-index: 10;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+.tabs::-webkit-scrollbar {
+    display: none;
 }
 
 .tab {
@@ -37,7 +43,9 @@ body.fade-out {
     text-decoration: none;
     font-weight: bold;
     position: relative;
-    padding: 0.25rem 0;
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .tab:hover {
@@ -48,17 +56,23 @@ body.fade-out {
     position: absolute;
     bottom: 0;
     left: 0;
-
     height: 2px;
-    background: var(--accent);
+    background-color: var(--accent);
     border-radius: 2px;
-
-    width: 0;
-    transform: translateX(0);
-
     transition: transform 0.35s ease, width 0.35s ease;
-    pointer-events: none;
     opacity: 0;
+}
+
+@media (max-width: 600px) {
+    .tabs {
+        gap: 1rem;
+        padding: 0.75rem 0;
+    }
+
+    .tab {
+        font-size: 0.95rem;
+        padding: 0.25rem 0.4rem;
+    }
 }
 
 .container {
