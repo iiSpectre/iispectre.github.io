@@ -17,15 +17,5 @@
 <div class="container">
 <h1>Tools</h1>
 
-<script>
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', e => {
-        e.preventDefault();
-        document.body.classList.add('fade-out');
-        setTimeout(() => location.href = tab.href, 300);
-    });
-});
-</script>
-
 </body>
 </html>
