@@ -12,35 +12,37 @@ fetch('/partials/nav.html')
         let navigating = false;
 
         function moveIndicator(tab, instant = false) {
-    if (!indicator || !tab) return;
+            if (!indicator || !tab) return;
 
-    const rect = tab.getBoundingClientRect();
-    const parentRect = tab.parentElement.getBoundingClientRect();
+            const rect = tab.getBoundingClientRect();
+            const parentRect = tab.parentElement.getBoundingClientRect();
 
-    if (instant) {
-        indicator.style.transition = 'none';
-    }
+            if (instant) {
+                indicator.style.transition = 'none';
+            }
 
-    indicator.style.width = `${rect.width}px`;
-    indicator.style.transform =
-        `translateX(${rect.left - parentRect.left}px)`;
-    indicator.style.opacity = '1';
+            indicator.style.width = `${rect.width}px`;
+            indicator.style.transform =
+                `translateX(${rect.left - parentRect.left}px)`;
+            indicator.style.opacity = '1';
 
-    if (instant) {
-        requestAnimationFrame(() => {
-            indicator.style.transition =
-                'transform 0.35s ease, width 0.35s ease';
-        });
-    }
-}
+            if (instant) {
+                // Force layout before re-enabling transitions
+                indicator.offsetHeight;
 
+                indicator.style.transition =
+                    'transform 0.35s ease, width 0.35s ease';
+            }
+        }
 
         tabs.forEach(tab => {
-            const tabPage = tab.getAttribute('href').split('/').pop();
+            const tabPage = tab
+                .getAttribute('href')
+                .split('/')
+                .pop();
 
             if (tabPage === currentPage) {
                 tab.classList.add('active');
-
                 requestAnimationFrame(() => moveIndicator(tab, true));
             }
 
