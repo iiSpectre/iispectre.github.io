@@ -11,16 +11,29 @@ fetch('/partials/nav.html')
 
         let navigating = false;
 
-        function moveIndicator(tab) {
-            if (!indicator || !tab) return;
+        function moveIndicator(tab, instant = false) {
+    if (!indicator || !tab) return;
 
-            const rect = tab.getBoundingClientRect();
-            const parentRect = tab.parentElement.getBoundingClientRect();
+    const rect = tab.getBoundingClientRect();
+    const parentRect = tab.parentElement.getBoundingClientRect();
 
-            indicator.style.width = `${rect.width}px`;
-            indicator.style.transform =
-                `translateX(${rect.left - parentRect.left}px)`;
-        }
+    if (instant) {
+        indicator.style.transition = 'none';
+    }
+
+    indicator.style.width = `${rect.width}px`;
+    indicator.style.transform =
+        `translateX(${rect.left - parentRect.left}px)`;
+    indicator.style.opacity = '1';
+
+    if (instant) {
+        requestAnimationFrame(() => {
+            indicator.style.transition =
+                'transform 0.35s ease, width 0.35s ease';
+        });
+    }
+}
+
 
         tabs.forEach(tab => {
             const tabPage = tab.getAttribute('href').split('/').pop();
@@ -28,7 +41,7 @@ fetch('/partials/nav.html')
             if (tabPage === currentPage) {
                 tab.classList.add('active');
 
-                requestAnimationFrame(() => moveIndicator(tab));
+                requestAnimationFrame(() => moveIndicator(tab, true));
             }
 
             tab.addEventListener('click', e => {
