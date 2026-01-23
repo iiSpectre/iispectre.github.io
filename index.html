@@ -57,14 +57,6 @@ Mitu plushie in the near future!</p>
 </div>
 
 <script>
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', e => {
-        e.preventDefault();
-        document.body.classList.add('fade-out');
-        setTimeout(() => location.href = tab.href, 300);
-    });
-});
-
 const specifics = document.querySelector('.specifics');
 const toggle = document.getElementById('specificsToggle');
 const content = specifics.querySelector('.specifics-content');
