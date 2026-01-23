@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dev</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/Media/favicon.png" type="image/png">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<div id="nav-placeholder"></div>
+<script src="/js/nav.js"></script>
+
+
+<div class="container">
+<h1>Tools</h1>
+
+  <script>
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', e => {
+        e.preventDefault();
+        document.body.classList.add('fade-out');
+        setTimeout(() => location.href = tab.href, 300);
+    });
+});
+</script>
+
+</body>
+</html>
