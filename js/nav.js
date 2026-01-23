@@ -3,7 +3,10 @@ fetch('/partials/nav.html')
     .then(html => {
         document.getElementById('nav-placeholder').innerHTML = html;
 
-        const currentPage = location.pathname.split('/').pop() || 'index.html';
+        let currentPage = location.pathname.split('/').pop();
+        if (!currentPage) currentPage = 'index.html';
+
+        let navigating = false;
 
         document.querySelectorAll('.tab').forEach(tab => {
             const tabPage = tab.getAttribute('href').split('/').pop();
@@ -13,8 +16,12 @@ fetch('/partials/nav.html')
             }
 
             tab.addEventListener('click', e => {
+                if (navigating) return;
+                navigating = true;
+
                 e.preventDefault();
                 document.body.classList.add('fade-out');
+
                 setTimeout(() => {
                     window.location.href = tab.href;
                 }, 300);
