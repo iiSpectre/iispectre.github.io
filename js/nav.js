@@ -29,3 +29,11 @@ fetch('/partials/nav.html')
         });
     })
     .catch(err => console.error(err));
+
+fetch('/partials/socials.html')
+    .then(res => res.text())
+    .then(html => {
+        const el = document.getElementById('socials-placeholder');
+        if (el) el.innerHTML = html;
+    })
+    .catch(console.error);
