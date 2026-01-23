@@ -23,10 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
         lastX: 0,
         lastTime: 0,
         setWidth: 0,
-        rafId: null
+        rafId: null,
+        idleRafId: null,
+        lastInteraction: Date.now()
     };
 
     const GAP = 24;
+    const IDLE_DELAY = 2500;
+    const IDLE_SPEED = 0.2;
 
     const calcWidth = () => {
         if (!imgs[0]) return;
@@ -58,13 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
         state.rafId = null;
     };
 
+    const stopIdle = () => {
+        if (state.idleRafId) cancelAnimationFrame(state.idleRafId);
+        state.idleRafId = null;
+    };
+
     const startDrag = x => {
         state.isDragging = true;
         stopMomentum();
+        stopIdle();
         state.startX = x - state.currentX;
         state.lastX = x;
         state.lastTime = performance.now();
         state.velocity = 0;
+        state.lastInteraction = Date.now();
     };
 
     const dragMove = x => {
@@ -76,12 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
         state.lastTime = now;
         state.currentX = x - state.startX;
         apply();
+        state.lastInteraction = Date.now();
     };
 
     const endDrag = () => {
         if (!state.isDragging) return;
         state.isDragging = false;
+        state.lastInteraction = Date.now();
         startMomentum();
+        startIdle();
     };
 
     const startMomentum = () => {
@@ -98,6 +112,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!state.rafId) state.rafId = requestAnimationFrame(frame);
     };
 
+    const startIdle = () => {
+        const frame = () => {
+            const now = Date.now();
+            if (!state.isDragging && now - state.lastInteraction > IDLE_DELAY) {
+                state.currentX -= IDLE_SPEED;
+                apply();
+            }
+            state.idleRafId = requestAnimationFrame(frame);
+        };
+        if (!state.idleRafId) state.idleRafId = requestAnimationFrame(frame);
+    };
+
     track.addEventListener('mousedown', e => startDrag(e.clientX));
     window.addEventListener('mousemove', e => dragMove(e.clientX));
     window.addEventListener('mouseup', endDrag);
@@ -107,4 +133,5 @@ document.addEventListener('DOMContentLoaded', () => {
     track.addEventListener('touchend', endDrag);
 
     apply();
+    startIdle();
 });
