@@ -15,7 +15,10 @@ fetch('/partials/nav.html')
             if (!indicator || !tab) return;
 
             const rect = tab.getBoundingClientRect();
-            const parentRect = tab.parentElement.getBoundingClientRect();
+            const parentRect = document
+                .querySelector('.tabs')
+                .getBoundingClientRect();
+
 
             if (instant) {
                 indicator.style.transition = 'none';
