@@ -44,15 +44,19 @@ body.fade-out {
     color: var(--accent);
 }
 
-.tab.active::after {
-    content: '';
+.tab-indicator {
     position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
+    bottom: 8px;
     height: 2px;
     background-color: var(--accent);
     border-radius: 2px;
+
+    width: 0;
+    left: 0;
+
+    transition:
+        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .container {
