@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const GAP = 24;
     const IDLE_DELAY = 2500;
-    const IDLE_MAX_SPEED = 40;
+    const IDLE_MAX_SPEED = 70;
     const IDLE_ACCEL = 60;
 
     const state = {
