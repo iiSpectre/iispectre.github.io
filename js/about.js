@@ -1,4 +1,3 @@
-<script>
 document.addEventListener('DOMContentLoaded', () => {
     const specifics = document.querySelector('.specifics');
     const toggle = document.getElementById('specificsToggle');
@@ -174,4 +173,3 @@ document.addEventListener('DOMContentLoaded', () => {
     apply();
     startIdle();
 });
-</script>
