@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     imgs.forEach(img => track.appendChild(img.cloneNode(true)));
     imgs = Array.from(track.children);
 
+    imgs.forEach(img => {
+        img.draggable = false;
+    });
+    track.addEventListener('dragstart', e => e.preventDefault());
+
     const state = {
         isDragging: false,
         startX: 0,
@@ -81,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         stopIdle();
 
         state.idleSpeed = 0;
-
         state.startX = x - state.currentX;
         state.lastX = x;
         state.lastTime = performance.now();
@@ -134,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startIdle = () => {
         const frame = time => {
-            const idleTime = time - state.lastIdleTime;
+            const dt = (time - state.lastIdleTime) / 1000;
             state.lastIdleTime = time;
 
             if (
@@ -143,10 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
             ) {
                 state.idleSpeed = Math.min(
                     IDLE_MAX_SPEED,
-                    state.idleSpeed + IDLE_ACCEL * (idleTime / 1000)
+                    state.idleSpeed + IDLE_ACCEL * dt
                 );
 
-                state.currentX -= state.idleSpeed * (idleTime / 1000);
+                state.currentX -= state.idleSpeed * dt;
                 apply();
             } else {
                 state.idleSpeed = 0;
@@ -163,8 +167,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', e => dragMove(e.clientX));
     window.addEventListener('mouseup', endDrag);
 
-    track.addEventListener('touchstart', e => startDrag(e.touches[0].clientX), { passive: true });
-    track.addEventListener('touchmove', e => dragMove(e.touches[0].clientX), { passive: true });
+    track.addEventListener(
+        'touchstart',
+        e => startDrag(e.touches[0].clientX),
+        { passive: true }
+    );
+    track.addEventListener(
+        'touchmove',
+        e => dragMove(e.touches[0].clientX),
+        { passive: true }
+    );
     track.addEventListener('touchend', endDrag);
 
     apply();
