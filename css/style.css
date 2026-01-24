@@ -169,6 +169,8 @@ ul li {
     gap: 1.5rem;
     will-change: transform;
     pointer-events: auto;
+    touch-action: pan-y;
+    cursor: grab;
 }
 
 .image-track img {
@@ -186,6 +188,10 @@ ul li {
     transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
+.image-track:active {
+    cursor: grabbing;
+}
+
 .social-links {
     margin: 2rem 0;
     display: flex;
@@ -201,7 +207,6 @@ ul li {
     opacity: 0.85;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
-
 
 .social-links img:hover {
     transform: scale(1.15);
