@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     imgs.forEach(img => track.appendChild(img.cloneNode(true)));
     imgs = Array.from(track.children);
 
-    let state = {
+    const state = {
         isDragging: false,
         startX: 0,
         currentX: 0,
@@ -25,28 +25,34 @@ document.addEventListener('DOMContentLoaded', () => {
         setWidth: 0,
         rafId: null,
         idleRafId: null,
-        lastInteraction: Date.now()
+        lastInteraction: Date.now(),
+        idleSpeed: 0
     };
 
     const GAP = 24;
     const IDLE_DELAY = 2500;
-    const IDLE_SPEED = 0.2;
+    const IDLE_TARGET_SPEED = 0.25;
+    const IDLE_ACCEL = 0.04;
 
     const calcWidth = () => {
         if (!imgs[0]) return;
         state.setWidth = (imgs.length / 2) * (imgs[0].offsetWidth + GAP);
     };
+
     window.addEventListener('load', calcWidth);
     window.addEventListener('resize', calcWidth);
 
     const wrap = () => {
         if (!state.setWidth) return;
-        state.currentX = ((state.currentX % state.setWidth) + state.setWidth) % state.setWidth - state.setWidth;
+        state.currentX =
+            ((state.currentX % state.setWidth) + state.setWidth) % state.setWidth -
+            state.setWidth;
     };
 
     const apply = () => {
         wrap();
         track.style.transform = `translateX(${state.currentX}px)`;
+
         const center = window.innerWidth / 2;
         imgs.forEach(img => {
             const rect = img.getBoundingClientRect();
@@ -71,6 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
         state.isDragging = true;
         stopMomentum();
         stopIdle();
+
+        state.idleSpeed = 0;
+
         state.startX = x - state.currentX;
         state.lastX = x;
         state.lastTime = performance.now();
@@ -80,12 +89,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const dragMove = x => {
         if (!state.isDragging) return;
+
         const now = performance.now();
         const dt = now - state.lastTime;
-        if (dt > 0) state.velocity = Math.max(-1, Math.min(1, (x - state.lastX) / dt));
+
+        if (dt > 0) {
+            state.velocity = Math.max(-1, Math.min(1, (x - state.lastX) / dt));
+        }
+
         state.lastX = x;
         state.lastTime = now;
         state.currentX = x - state.startX;
+
         apply();
         state.lastInteraction = Date.now();
     };
@@ -104,32 +119,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.rafId = null;
                 return;
             }
+
             state.currentX += state.velocity * 16;
             state.velocity *= 0.95;
             apply();
+
             state.rafId = requestAnimationFrame(frame);
         };
+
         if (!state.rafId) state.rafId = requestAnimationFrame(frame);
     };
 
     const startIdle = () => {
         const frame = () => {
             const now = Date.now();
+
             if (!state.isDragging && now - state.lastInteraction > IDLE_DELAY) {
-                state.currentX -= IDLE_SPEED;
+                state.idleSpeed +=
+                    (IDLE_TARGET_SPEED - state.idleSpeed) * IDLE_ACCEL;
+
+                state.currentX -= state.idleSpeed;
                 apply();
+            } else {
+                state.idleSpeed = 0;
             }
+
             state.idleRafId = requestAnimationFrame(frame);
         };
-        if (!state.idleRafId) state.idleRafId = requestAnimationFrame(frame);
+
+        if (!state.idleRafId) {
+            state.idleSpeed = 0;
+            state.idleRafId = requestAnimationFrame(frame);
+        }
     };
 
     track.addEventListener('mousedown', e => startDrag(e.clientX));
     window.addEventListener('mousemove', e => dragMove(e.clientX));
     window.addEventListener('mouseup', endDrag);
 
-    track.addEventListener('touchstart', e => startDrag(e.touches[0].clientX), { passive: true });
-    track.addEventListener('touchmove', e => dragMove(e.touches[0].clientX), { passive: true });
+    track.addEventListener(
+        'touchstart',
+        e => startDrag(e.touches[0].clientX),
+        { passive: true }
+    );
+    track.addEventListener(
+        'touchmove',
+        e => dragMove(e.touches[0].clientX),
+        { passive: true }
+    );
     track.addEventListener('touchend', endDrag);
 
     apply();
