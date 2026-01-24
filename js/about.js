@@ -26,13 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
         rafId: null,
         idleRafId: null,
         lastInteraction: Date.now(),
-        idleSpeed: 0
+        idleSpeed: 0,
+        lastIdleTime: performance.now()
     };
 
     const GAP = 24;
     const IDLE_DELAY = 2500;
-    const IDLE_TARGET_SPEED = 0.25;
-    const IDLE_ACCEL = 0.04;
+
+    const IDLE_MAX_SPEED = 40;
+    const IDLE_ACCEL = 60;
 
     const calcWidth = () => {
         if (!imgs[0]) return;
@@ -56,10 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const center = window.innerWidth / 2;
         imgs.forEach(img => {
             const rect = img.getBoundingClientRect();
-            const distance = Math.abs(center - (rect.left + rect.width / 2));
-            const scale = Math.max(0.75, 1 - distance / 500);
-            img.style.transform = `scale(${scale})`;
-            img.style.opacity = scale;
+            const d = Math.abs(center - (rect.left + rect.width / 2));
+            const s = Math.max(0.75, 1 - d / 500);
+            img.style.transform = `scale(${s})`;
+            img.style.opacity = s;
         });
     };
 
@@ -131,14 +133,20 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const startIdle = () => {
-        const frame = () => {
-            const now = Date.now();
+        const frame = time => {
+            const idleTime = time - state.lastIdleTime;
+            state.lastIdleTime = time;
 
-            if (!state.isDragging && now - state.lastInteraction > IDLE_DELAY) {
-                state.idleSpeed +=
-                    (IDLE_TARGET_SPEED - state.idleSpeed) * IDLE_ACCEL;
+            if (
+                !state.isDragging &&
+                Date.now() - state.lastInteraction > IDLE_DELAY
+            ) {
+                state.idleSpeed = Math.min(
+                    IDLE_MAX_SPEED,
+                    state.idleSpeed + IDLE_ACCEL * (idleTime / 1000)
+                );
 
-                state.currentX -= state.idleSpeed;
+                state.currentX -= state.idleSpeed * (idleTime / 1000);
                 apply();
             } else {
                 state.idleSpeed = 0;
@@ -147,26 +155,16 @@ document.addEventListener('DOMContentLoaded', () => {
             state.idleRafId = requestAnimationFrame(frame);
         };
 
-        if (!state.idleRafId) {
-            state.idleSpeed = 0;
-            state.idleRafId = requestAnimationFrame(frame);
-        }
+        state.lastIdleTime = performance.now();
+        state.idleRafId = requestAnimationFrame(frame);
     };
 
     track.addEventListener('mousedown', e => startDrag(e.clientX));
     window.addEventListener('mousemove', e => dragMove(e.clientX));
     window.addEventListener('mouseup', endDrag);
 
-    track.addEventListener(
-        'touchstart',
-        e => startDrag(e.touches[0].clientX),
-        { passive: true }
-    );
-    track.addEventListener(
-        'touchmove',
-        e => dragMove(e.touches[0].clientX),
-        { passive: true }
-    );
+    track.addEventListener('touchstart', e => startDrag(e.touches[0].clientX), { passive: true });
+    track.addEventListener('touchmove', e => dragMove(e.touches[0].clientX), { passive: true });
     track.addEventListener('touchend', endDrag);
 
     apply();
