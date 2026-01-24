@@ -1,24 +1,28 @@
+<script>
 document.addEventListener('DOMContentLoaded', () => {
     const specifics = document.querySelector('.specifics');
     const toggle = document.getElementById('specificsToggle');
-    const content = specifics.querySelector('.specifics-content');
+    const content = specifics?.querySelector('.specifics-content');
 
-    toggle.addEventListener('click', () => {
-        const open = specifics.classList.toggle('open');
-        content.style.height = open ? content.scrollHeight + 'px' : '0';
-        content.style.opacity = open ? '1' : '0';
-    });
+    if (toggle && specifics && content) {
+        toggle.addEventListener('click', () => {
+            const open = specifics.classList.toggle('open');
+            content.style.height = open ? content.scrollHeight + 'px' : '0';
+            content.style.opacity = open ? '1' : '0';
+        });
+    }
 
     const track = document.querySelector('.image-track');
-    let imgs = Array.from(track.children);
+    if (!track) return;
 
+    let imgs = Array.from(track.children);
     imgs.forEach(img => track.appendChild(img.cloneNode(true)));
     imgs = Array.from(track.children);
 
-    imgs.forEach(img => {
-        img.draggable = false;
-    });
-    track.addEventListener('dragstart', e => e.preventDefault());
+    const GAP = 24;
+    const IDLE_DELAY = 2500;
+    const IDLE_MAX_SPEED = 40;
+    const IDLE_ACCEL = 60;
 
     const state = {
         isDragging: false,
@@ -28,18 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
         lastX: 0,
         lastTime: 0,
         setWidth: 0,
-        rafId: null,
-        idleRafId: null,
-        lastInteraction: Date.now(),
+        momentumRaf: null,
+        idleRaf: null,
         idleSpeed: 0,
+        lastInteraction: Date.now(),
         lastIdleTime: performance.now()
     };
-
-    const GAP = 24;
-    const IDLE_DELAY = 2500;
-
-    const IDLE_MAX_SPEED = 40;
-    const IDLE_ACCEL = 60;
 
     const calcWidth = () => {
         if (!imgs[0]) return;
@@ -52,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = () => {
         if (!state.setWidth) return;
         state.currentX =
-            ((state.currentX % state.setWidth) + state.setWidth) % state.setWidth -
-            state.setWidth;
+            ((state.currentX % state.setWidth) + state.setWidth) %
+            state.setWidth - state.setWidth;
     };
 
     const apply = () => {
@@ -62,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const center = window.innerWidth / 2;
         imgs.forEach(img => {
-            const rect = img.getBoundingClientRect();
-            const d = Math.abs(center - (rect.left + rect.width / 2));
+            const r = img.getBoundingClientRect();
+            const d = Math.abs(center - (r.left + r.width / 2));
             const s = Math.max(0.75, 1 - d / 500);
             img.style.transform = `scale(${s})`;
             img.style.opacity = s;
@@ -71,13 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const stopMomentum = () => {
-        if (state.rafId) cancelAnimationFrame(state.rafId);
-        state.rafId = null;
+        if (state.momentumRaf) cancelAnimationFrame(state.momentumRaf);
+        state.momentumRaf = null;
     };
 
     const stopIdle = () => {
-        if (state.idleRafId) cancelAnimationFrame(state.idleRafId);
-        state.idleRafId = null;
+        if (state.idleRaf) cancelAnimationFrame(state.idleRaf);
+        state.idleRaf = null;
     };
 
     const startDrag = x => {
@@ -98,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const now = performance.now();
         const dt = now - state.lastTime;
-
         if (dt > 0) {
             state.velocity = Math.max(-1, Math.min(1, (x - state.lastX) / dt));
         }
@@ -122,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startMomentum = () => {
         const frame = () => {
             if (Math.abs(state.velocity) < 0.002) {
-                state.rafId = null;
+                state.momentumRaf = null;
                 return;
             }
 
@@ -130,10 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
             state.velocity *= 0.95;
             apply();
 
-            state.rafId = requestAnimationFrame(frame);
+            state.momentumRaf = requestAnimationFrame(frame);
         };
 
-        if (!state.rafId) state.rafId = requestAnimationFrame(frame);
+        state.momentumRaf = requestAnimationFrame(frame);
     };
 
     const startIdle = () => {
@@ -156,29 +153,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.idleSpeed = 0;
             }
 
-            state.idleRafId = requestAnimationFrame(frame);
+            state.idleRaf = requestAnimationFrame(frame);
         };
 
         state.lastIdleTime = performance.now();
-        state.idleRafId = requestAnimationFrame(frame);
+        state.idleRaf = requestAnimationFrame(frame);
     };
 
-    track.addEventListener('mousedown', e => startDrag(e.clientX));
-    window.addEventListener('mousemove', e => dragMove(e.clientX));
-    window.addEventListener('mouseup', endDrag);
+    track.addEventListener('pointerdown', e => {
+        track.setPointerCapture(e.pointerId);
+        startDrag(e.clientX);
+    });
 
-    track.addEventListener(
-        'touchstart',
-        e => startDrag(e.touches[0].clientX),
-        { passive: true }
-    );
-    track.addEventListener(
-        'touchmove',
-        e => dragMove(e.touches[0].clientX),
-        { passive: true }
-    );
-    track.addEventListener('touchend', endDrag);
+    track.addEventListener('pointermove', e => dragMove(e.clientX));
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('pointerleave', endDrag);
 
+    calcWidth();
     apply();
     startIdle();
 });
+</script>
