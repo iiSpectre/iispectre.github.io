@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!track) return;
 
     let imgs = Array.from(track.children);
+
     imgs.forEach(img => track.appendChild(img.cloneNode(true)));
     imgs = Array.from(track.children);
 
@@ -48,9 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const wrap = () => {
         if (!state.setWidth) return;
-        state.currentX =
-            ((state.currentX % state.setWidth) + state.setWidth) %
-            state.setWidth - state.setWidth;
+        while (state.currentX < -state.setWidth) state.currentX += state.setWidth;
+        while (state.currentX > 0) state.currentX -= state.setWidth;
     };
 
     const apply = () => {
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = performance.now();
         const dt = now - state.lastTime;
         if (dt > 0) {
-            state.velocity = Math.max(-1, Math.min(1, (x - state.lastX) / dt));
+            state.velocity = (x - state.lastX) / dt;
         }
 
         state.lastX = x;
@@ -117,19 +117,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startMomentum = () => {
         const frame = () => {
-            if (Math.abs(state.velocity) < 0.002) {
+            if (Math.abs(state.velocity) < 0.01) {
                 state.momentumRaf = null;
                 return;
             }
 
             state.currentX += state.velocity * 16;
-            state.velocity *= 0.95;
+            state.velocity *= 0.92;
             apply();
 
             state.momentumRaf = requestAnimationFrame(frame);
         };
 
-        state.momentumRaf = requestAnimationFrame(frame);
+        if (!state.momentumRaf) state.momentumRaf = requestAnimationFrame(frame);
     };
 
     const startIdle = () => {
@@ -137,15 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const dt = (time - state.lastIdleTime) / 1000;
             state.lastIdleTime = time;
 
-            if (
-                !state.isDragging &&
-                Date.now() - state.lastInteraction > IDLE_DELAY
-            ) {
-                state.idleSpeed = Math.min(
-                    IDLE_MAX_SPEED,
-                    state.idleSpeed + IDLE_ACCEL * dt
-                );
-
+            if (!state.isDragging && Date.now() - state.lastInteraction > IDLE_DELAY) {
+                state.idleSpeed = Math.min(IDLE_MAX_SPEED, state.idleSpeed + IDLE_ACCEL * dt);
                 state.currentX -= state.idleSpeed * dt;
                 apply();
             } else {
