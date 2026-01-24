@@ -108,12 +108,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const endDrag = () => {
-        if (!state.isDragging) return;
-        state.isDragging = false;
-        state.lastInteraction = Date.now();
-        startMomentum();
-        startIdle();
-    };
+    if (!state.isDragging) return;
+    state.isDragging = false;
+    state.lastInteraction = Date.now();
+
+    if (Math.abs(state.velocity) < 0.01) {
+        state.velocity = 0.05 * (Math.random() > 0.5 ? 1 : -1);
+    }
+
+    startMomentum();
+    startIdle();
+};
 
     const startMomentum = () => {
         const frame = () => {
@@ -167,22 +172,3 @@ document.addEventListener('DOMContentLoaded', () => {
     startIdle();
 });
 
-const apply = () => {
-    wrap();
-    track.style.transform = `translateX(${state.currentX}px)`;
-
-    console.log('currentX:', state.currentX);
-    console.log('velocity:', state.velocity);
-
-    const center = window.innerWidth / 2;
-    imgs.forEach(img => {
-        const r = img.getBoundingClientRect();
-        const d = Math.abs(center - (r.left + r.width / 2));
-        const s = Math.max(0.75, 1 - d / 500);
-        img.style.transform = `scale(${s})`;
-        img.style.opacity = s;
-        if (s <= 0.75) {
-            console.log('smallest scale img centerX:', r.left + r.width / 2);
-        }
-    });
-};
