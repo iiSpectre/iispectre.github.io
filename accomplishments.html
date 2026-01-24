@@ -89,47 +89,7 @@
     
 </div>
 
-<script>
-const track = document.querySelector('.accomplishments-track');
-const slides = document.querySelectorAll('.accomplishment-slide');
-const dotsContainer = document.querySelector('.accomplishments-dots');
-const prevBtn = document.querySelector('.accomplishments-arrow.left');
-const nextBtn = document.querySelector('.accomplishments-arrow.right');
-
-let index = 0;
-
-slides.forEach((_, i) => {
-    const dot = document.createElement('span');
-    dot.addEventListener('click', () => goTo(i));
-    dotsContainer.appendChild(dot);
-});
-
-const dots = dotsContainer.querySelectorAll('span');
-
-function update() {
-    track.style.transform = `translateX(-${index * 100}%)`;
-    dots.forEach((d, i) => d.classList.toggle('active', i === index));
-}
-
-function goTo(i) {
-    const total = slides.length;
-
-    if (i < 0) {
-        index = total - 1;
-    } else if (i >= total) {
-        index = 0;
-    } else {
-        index = i;
-    }
-
-    update();
-}
-
-prevBtn.addEventListener('click', () => goTo(index - 1));
-nextBtn.addEventListener('click', () => goTo(index + 1));
-
-update();
-</script>
+<script src="/js/accomplishments.js" defer></script>
     
 </body>
 </html>
