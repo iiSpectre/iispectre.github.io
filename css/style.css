@@ -398,7 +398,7 @@ ul li {
 
 .projects-layout {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 3rem;
     margin-top: 2rem;
 }
