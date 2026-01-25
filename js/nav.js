@@ -19,7 +19,6 @@ fetch('/partials/nav.html')
                 .querySelector('.tabs')
                 .getBoundingClientRect();
 
-
             if (instant) {
                 indicator.style.transition = 'none';
             }
@@ -31,7 +30,6 @@ fetch('/partials/nav.html')
 
             if (instant) {
                 indicator.offsetHeight;
-
                 indicator.style.transition =
                     'transform 0.35s ease, width 0.35s ease';
             }
@@ -72,10 +70,14 @@ fetch('/partials/nav.html')
     })
     .catch(err => console.error(err));
 
-fetch('/partials/socials.html')
-    .then(res => res.text())
-    .then(html => {
-        const el = document.getElementById('socials-placeholder');
-        if (el) el.innerHTML = html;
-    })
-    .catch(console.error);
+document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('socials-placeholder');
+    if (!el) return;
+
+    fetch('/partials/socials.html')
+        .then(res => res.text())
+        .then(html => {
+            el.innerHTML = html;
+        })
+        .catch(console.error);
+});
