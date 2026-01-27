@@ -423,3 +423,16 @@ hr {
     background-color: #64748b;
     margin: 1rem 0;
 }
+
+.container p a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.container p a:hover {
+    color: #38bdf8;
+    text-decoration: underline;
+    transform: scale(1.05);
+}
