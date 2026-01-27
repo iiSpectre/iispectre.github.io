@@ -221,18 +221,36 @@ ul li {
 }
 
 .accomplishments-wrapper {
+    position: relative;
     display: flex;
+    align-items: flex-start;
     justify-content: center;
     margin-top: 2rem;
     max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 1rem;
+}
+
+.accomplishments-mascot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 260px;
+    max-width: 30vw;
+    user-select: none;
+    pointer-events: none;
+    flex-shrink: 0;
 }
 
 .accomplishments {
+    position: relative;
+    flex: 1;
     max-width: 700px;
-    width: 100%;
-    text-align: center;
+    margin: 0 auto;
+    background-color: var(--panel);
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .accomplishments-track {
@@ -316,61 +334,26 @@ ul li {
 }
 
 .projects-layout {
+    position: relative;
     display: flex;
+    align-items: flex-start;
     justify-content: center;
+    gap: 3rem;
     margin-top: 2rem;
+}
+
+.projects-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 260px;
+    max-width: 30vw;
+    flex-shrink: 0;
+    pointer-events: none;
 }
 
 .projects-content {
     flex: 1;
-}
-
-@media (min-width: 769px) {
-    .projects-layout,
-    .accomplishments-wrapper {
-        position: relative;
-    }
-
-    .projects-image,
-    .accomplishments-mascot {
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 260px;
-        max-width: 30vw;
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .projects-content,
-    .accomplishments {
-        text-align: center;
-    }
-}
-
-@media (max-width: 768px) {
-    .projects-layout,
-    .accomplishments-wrapper {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        position: relative;
-    }
-
-    .projects-image,
-    .accomplishments-mascot {
-        position: static;
-        margin-bottom: 0.5rem;
-        width: 200px;
-        max-width: 70%;
-        transform: none;
-    }
-
-    .projects-content,
-    .accomplishments {
-        max-width: 100%;
-    }
 }
 
 .tiktok-video iframe {
@@ -381,6 +364,28 @@ ul li {
 }
 
 @media (max-width: 768px) {
+    .accomplishments-wrapper,
+    .projects-layout {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+    }
+
+    .accomplishments-mascot,
+    .projects-image {
+        position: static;
+        width: 200px;
+        max-width: 70%;
+        margin-bottom: 0.5rem;
+        transform: none;
+    }
+
+    .accomplishments,
+    .projects-content {
+        max-width: 100%;
+    }
+
     .projects-content ul {
         text-align: left;
     }
