@@ -232,13 +232,38 @@ ul li {
     padding: 0 1rem;
 }
 
-.accomplishments-mascot {
-    width: 260px;
+.side-mascot-layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.side-mascot {
+    width: 220px;
     max-width: 30vw;
-    height: auto;
-    user-select: none;
-    pointer-events: none;
-    flex-shrink: 0;
+    justify-self: start;
+}
+
+.side-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .side-mascot-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .side-mascot {
+        margin: 0 auto;
+    }
+
+    .side-content {
+        text-align: center;
+    }
 }
 
 .accomplishments {
