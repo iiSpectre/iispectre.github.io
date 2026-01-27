@@ -221,20 +221,12 @@ ul li {
 }
 
 .accomplishments-wrapper {
-    position: relative;
     display: flex;
     justify-content: center;
     margin-top: 2rem;
     max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.accomplishments-mascot {
-    position: absolute;
-    left: 0;
-    width: 260px;
-    max-width: 30vw;
 }
 
 .accomplishments {
@@ -323,87 +315,59 @@ ul li {
     transform: scale(1.2);
 }
 
-@media (max-width: 600px) {
-    .accomplishments-wrapper {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-    }
-
-    .accomplishments-mascot {
-        width: 200px;
-        max-width: 70%;
-        margin-bottom: 0.5rem;
-    }
-
-    .accomplishments {
-        max-width: 100%;
-        margin-top: 0.5rem;
-    }
-
-    .accomplishments-track {
-        width: 100%;
-    }
-
-    .accomplishment-slide {
-        min-width: 100%;
-        padding: 1rem 0.75rem;
-    }
-
-    .accomplishment-slide h2 {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .accomplishment-slide p {
-        font-size: 0.95rem;
-        line-height: 1.5;
-    }
-
-    .accomplishment-slide img {
-        margin-bottom: 0.75rem;
-    }
-
-    .video-embed {
-        margin: 0.75rem auto;
-        border-radius: 10px;
-    }
-
-    .video-embed iframe {
-        height: 180px;
-    }
-
-    .accomplishments-arrow {
-        font-size: 1.6rem;
-        bottom: 8px;
-    }
-
-    .accomplishments-dots {
-        padding-bottom: 0.75rem;
-    }
-
-    .accomplishments-dots span {
-        width: 8px;
-        height: 8px;
-    }
-}
-
 .projects-layout {
-    position: relative;
     display: flex;
     justify-content: center;
     margin-top: 2rem;
 }
 
-.projects-image {
-    position: absolute;
-    left: 0;
-    width: 260px;
-    max-width: 30vw;
-}
-
 .projects-content {
     flex: 1;
+}
+
+@media (min-width: 769px) {
+    .projects-image,
+    .accomplishments-mascot {
+        position: fixed;
+        left: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 260px;
+        max-width: 30vw;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .projects-content,
+    .accomplishments {
+        max-width: 700px;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-layout,
+    .accomplishments-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+    }
+
+    .projects-image,
+    .accomplishments-mascot {
+        position: static;
+        margin-bottom: 0.5rem;
+        width: 200px;
+        max-width: 70%;
+        transform: none;
+    }
+
+    .projects-content,
+    .accomplishments {
+        max-width: 100%;
+    }
 }
 
 .tiktok-video iframe {
@@ -414,16 +378,6 @@ ul li {
 }
 
 @media (max-width: 768px) {
-    .projects-layout {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .projects-image {
-        width: 220px;
-    }
-
     .projects-content ul {
         text-align: left;
     }
