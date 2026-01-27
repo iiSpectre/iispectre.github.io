@@ -19,9 +19,7 @@ fetch('/partials/nav.html')
       const rect = tab.getBoundingClientRect();
       const parentRect = document.querySelector('.tabs').getBoundingClientRect();
 
-      if (instant) {
-        indicator.style.transition = 'none';
-      }
+      if (instant) indicator.style.transition = 'none';
 
       indicator.style.width = `${rect.width}px`;
       indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
@@ -33,38 +31,43 @@ fetch('/partials/nav.html')
       }
     }
 
-    let activeTabFound = false;
+    requestAnimationFrame(() => {
+      let activeTab = null;
+      let foundCurrentPageTab = false;
 
-    tabs.forEach(tab => {
-      const tabPage = tab.getAttribute('href').split('/').pop();
+      tabs.forEach(tab => {
+        const tabPage = tab.getAttribute('href').split('/').pop() || 'index.html';
 
-      if (tabPage === currentPage) {
-        tab.classList.add('active');
-        requestAnimationFrame(() => moveIndicator(tab, true));
-        activeTabFound = true;
-      }
+        if (tabPage === currentPage) {
+          tab.classList.add('active');
+          activeTab = tab;
+          foundCurrentPageTab = true;
+        }
 
-      tab.addEventListener('click', e => {
-        if (navigating) return;
-        navigating = true;
+        tab.addEventListener('click', e => {
+          if (navigating) return;
+          navigating = true;
 
-        e.preventDefault();
+          e.preventDefault();
 
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        moveIndicator(tab);
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          moveIndicator(tab);
 
-        document.body.classList.add('fade-out');
-        setTimeout(() => {
-          window.location.href = tab.href;
-        }, 300);
+          document.body.classList.add('fade-out');
+          setTimeout(() => {
+            window.location.href = tab.href;
+          }, 300);
+        });
       });
-    });
 
-    if (!activeTabFound) {
-      indicator.style.opacity = '0';
-      indicator.style.width = '0';
-    }
+      if (foundCurrentPageTab && activeTab) {
+        moveIndicator(activeTab, true);
+      } else {
+        indicator.style.opacity = '0';
+        indicator.style.width = '0';
+      }
+    });
 
     window.addEventListener('resize', () => {
       const active = document.querySelector('.tab.active');
@@ -72,6 +75,18 @@ fetch('/partials/nav.html')
     });
   })
   .catch(err => console.error(err));
+
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.getElementById('socials-placeholder');
+  if (!el) return;
+
+  fetch('/partials/socials.html')
+    .then(res => res.text())
+    .then(html => {
+      el.innerHTML = html;
+    })
+    .catch(console.error);
+});
 
 window.addEventListener('pageshow', () => {
   document.body.classList.remove('fade-out');
