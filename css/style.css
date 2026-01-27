@@ -66,12 +66,15 @@ body.fade-out {
 @media (max-width: 600px) {
     .tabs {
         gap: 1rem;
-        padding: 0.75rem 0;
+        padding: 0.75rem 0.5rem;
+        justify-content: flex-start;
     }
 
     .tab {
         font-size: 0.95rem;
         padding: 0.25rem 0.4rem;
+        flex-shrink: 0;
+        min-width: fit-content;
     }
 }
 
