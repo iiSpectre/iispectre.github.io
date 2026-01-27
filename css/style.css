@@ -436,3 +436,9 @@ hr {
     transform: scale(1.05);
 }
 
+.projects-image img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+}
