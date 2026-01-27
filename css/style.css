@@ -407,12 +407,12 @@ ul li {
     }
 
     .accomplishments-mascot {
-        left: 8%;
+        left: 50%;
         max-width: 200px;
     }
 
     .projects-image {
-        left: 8%;
+        left: 50%;
         max-width: 200px;
     }
 }
