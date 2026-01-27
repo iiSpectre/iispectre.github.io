@@ -160,31 +160,34 @@ ul li {
     cursor: grab;
     user-select: none;
     touch-action: pan-y;
-    pointer-events: auto;
+}
 
 .image-carousel:active {
     cursor: grabbing;
+    user-drag: none;
 }
 
 .image-track {
     display: flex;
     gap: 1.5rem;
     will-change: transform;
-    pointer-events: none;
-    cursor: inherit;
+    pointer-events: auto;
+    touch-action: pan-y;
+    cursor: grab;
 }
 
 .image-track img {
     width: 180px;
     height: 180px;
     object-fit: contain;
+    user-drag: none;
+    -webkit-user-drag: none;
     flex-shrink: 0;
     border-radius: 8px;
     user-select: none;
-    user-drag: none;
-    -webkit-user-drag: none;
     pointer-events: none;
     touch-action: none;
+
     transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
