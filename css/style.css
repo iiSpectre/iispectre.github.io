@@ -329,8 +329,6 @@ ul li {
     .projects-layout,
     .accomplishments-wrapper {
         position: relative;
-        display: flex;
-        justify-content: center;
     }
 
     .projects-image,
@@ -347,8 +345,6 @@ ul li {
 
     .projects-content,
     .accomplishments {
-        max-width: 700px;
-        width: 100%;
         text-align: center;
     }
 }
