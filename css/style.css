@@ -66,9 +66,9 @@ body.fade-out {
 @media (max-width: 600px) {
     .tabs {
         gap: 1rem;
-        padding: 0.75rem 0.75rem;
+        padding: 0.75rem 1rem;
         justify-content: flex-start;
-        scroll-padding-right: 0.75rem;
+        scroll-padding-right: 1rem;
     }
 
     .tab {
@@ -78,6 +78,7 @@ body.fade-out {
         min-width: fit-content;
     }
 }
+
 
 .container {
     margin: 80px auto 0 auto;
