@@ -390,3 +390,22 @@ ul li {
         text-align: left;
     }
 }
+
+@media (min-width: 769px) {
+    .accomplishments-wrapper,
+    .projects-layout {
+        position: relative;
+    }
+
+    .accomplishments-mascot,
+    .projects-image {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 260px;
+        max-width: 30vw;
+        pointer-events: none;
+        z-index: 1;
+    }
+}
