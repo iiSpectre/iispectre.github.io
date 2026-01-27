@@ -326,10 +326,17 @@ ul li {
 }
 
 @media (min-width: 769px) {
+    .projects-layout,
+    .accomplishments-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
     .projects-image,
     .accomplishments-mascot {
-        position: fixed;
-        left: 2rem;
+        position: absolute;
+        left: 0;
         top: 50%;
         transform: translateY(-50%);
         width: 260px;
