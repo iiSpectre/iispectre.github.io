@@ -425,8 +425,8 @@ hr {
 }
 
 .container p a {
-    color: #f1f5f9;
-    text-decoration: underline;
+    color: #9ca3af;
+    text-decoration: none;
     font-weight: bold;
     transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -434,5 +434,5 @@ hr {
 .container p a:hover {
     color: #38bdf8;
     transform: scale(1.05);
-    text-decoration: underline;
 }
+
