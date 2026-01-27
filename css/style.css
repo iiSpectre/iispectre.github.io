@@ -243,6 +243,7 @@ ul li {
     width: 220px;
     max-width: 30vw;
     justify-self: start;
+    margin-right: auto;
 }
 
 .side-content {
@@ -285,6 +286,7 @@ ul li {
     min-width: 100%;
     padding: 2rem;
     box-sizing: border-box;
+    text-align: center;
 }
 
 .accomplishment-slide img {
