@@ -400,12 +400,20 @@ ul li {
     .accomplishments-mascot,
     .projects-image {
         position: absolute;
-        left: 0;
         top: 50%;
         transform: translateY(-50%);
-        width: 260px;
-        max-width: 30vw;
         pointer-events: none;
         z-index: 1;
     }
+
+    .accomplishments-mascot {
+        left: 8%;
+        max-width: 200px;
+    }
+
+    .projects-image {
+        left: 8%;
+        max-width: 200px;
+    }
 }
+
