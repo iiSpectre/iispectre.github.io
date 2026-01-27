@@ -6,6 +6,8 @@ fetch('/partials/nav.html')
     const tabs = document.querySelectorAll('.tab');
     const indicator = document.querySelector('.tab-indicator');
 
+    if (!tabs.length || !indicator) return;
+
     let currentPage = location.pathname.split('/').pop();
     if (!currentPage) currentPage = 'index.html';
 
@@ -17,7 +19,9 @@ fetch('/partials/nav.html')
       const rect = tab.getBoundingClientRect();
       const parentRect = document.querySelector('.tabs').getBoundingClientRect();
 
-      if (instant) indicator.style.transition = 'none';
+      if (instant) {
+        indicator.style.transition = 'none';
+      }
 
       indicator.style.width = `${rect.width}px`;
       indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
@@ -29,36 +33,38 @@ fetch('/partials/nav.html')
       }
     }
 
-    requestAnimationFrame(() => {
-      let activeTab = null;
-      tabs.forEach(tab => {
-        const tabPage = tab.getAttribute('href').split('/').pop() || 'index.html';
-        if (tabPage === currentPage) {
-          tab.classList.add('active');
-          activeTab = tab;
-        }
+    let activeTabFound = false;
 
-        tab.addEventListener('click', e => {
-          if (navigating) return;
-          navigating = true;
+    tabs.forEach(tab => {
+      const tabPage = tab.getAttribute('href').split('/').pop();
 
-          e.preventDefault();
+      if (tabPage === currentPage) {
+        tab.classList.add('active');
+        requestAnimationFrame(() => moveIndicator(tab, true));
+        activeTabFound = true;
+      }
 
-          tabs.forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-          moveIndicator(tab);
+      tab.addEventListener('click', e => {
+        if (navigating) return;
+        navigating = true;
 
-          document.body.classList.add('fade-out');
-          setTimeout(() => {
-            window.location.href = tab.href;
-          }, 300);
-        });
+        e.preventDefault();
+
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        moveIndicator(tab);
+
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+          window.location.href = tab.href;
+        }, 300);
       });
-
-      if (!activeTab && tabs.length > 0) activeTab = tabs[0];
-
-      if (activeTab) moveIndicator(activeTab, true);
     });
+
+    if (!activeTabFound) {
+      indicator.style.opacity = '0';
+      indicator.style.width = '0';
+    }
 
     window.addEventListener('resize', () => {
       const active = document.querySelector('.tab.active');
@@ -66,18 +72,6 @@ fetch('/partials/nav.html')
     });
   })
   .catch(err => console.error(err));
-
-document.addEventListener('DOMContentLoaded', () => {
-  const el = document.getElementById('socials-placeholder');
-  if (!el) return;
-
-  fetch('/partials/socials.html')
-    .then(res => res.text())
-    .then(html => {
-      el.innerHTML = html;
-    })
-    .catch(console.error);
-});
 
 window.addEventListener('pageshow', () => {
   document.body.classList.remove('fade-out');
