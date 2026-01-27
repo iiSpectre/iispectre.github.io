@@ -447,6 +447,8 @@ hr {
     position: fixed;
     bottom: 1rem;
     right: 1rem;
+    top: auto;
+    left: auto;
     background-color: var(--panel);
     color: var(--text);
     padding: 0.75rem 1rem;
