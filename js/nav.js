@@ -7,7 +7,9 @@ fetch('/partials/nav.html')
         const indicator = document.querySelector('.tab-indicator');
 
         let currentPage = location.pathname.split('/').pop();
-        if (!currentPage) currentPage = 'index.html';
+        if (!currentPage || currentPage === "") {
+            currentPage = 'index.html';
+        }
 
         let navigating = false;
 
@@ -36,7 +38,8 @@ fetch('/partials/nav.html')
         }
 
         tabs.forEach(tab => {
-            const tabPage = tab.getAttribute('href').split('/').pop();
+            const tabHref = tab.getAttribute('href');
+            const tabPage = tabHref.split('/').pop() || 'index.html';
 
             if (tabPage === currentPage) {
                 tab.classList.add('active');
