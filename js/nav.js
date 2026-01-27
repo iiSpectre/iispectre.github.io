@@ -36,10 +36,7 @@ fetch('/partials/nav.html')
         }
 
         tabs.forEach(tab => {
-            const tabPage = tab
-                .getAttribute('href')
-                .split('/')
-                .pop();
+            const tabPage = tab.getAttribute('href').split('/').pop();
 
             if (tabPage === currentPage) {
                 tab.classList.add('active');
@@ -80,4 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
             el.innerHTML = html;
         })
         .catch(console.error);
+});
+
+window.addEventListener('pageshow', () => {
+    document.body.classList.remove('fade-out');
 });
