@@ -11,8 +11,8 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: var(--bg);
     color: var(--text);
-    text-align: center;
     transition: opacity 0.3s ease;
+    text-align: center;
 }
 
 body.fade-out {
@@ -31,6 +31,7 @@ body.fade-out {
     z-index: 10;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     overflow-x: auto;
+    scroll-behavior: smooth;
 }
 
 .tabs::-webkit-scrollbar {
@@ -41,16 +42,41 @@ body.fade-out {
     color: var(--text);
     text-decoration: none;
     font-weight: bold;
+    position: relative;
     padding: 0.25rem 0.5rem;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .tab:hover {
     color: var(--accent);
 }
 
+.tab-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: var(--accent);
+    border-radius: 2px;
+    transition: transform 0.35s ease, width 0.35s ease;
+    opacity: 0;
+}
+
+@media (max-width: 600px) {
+    .tabs {
+        gap: 1rem;
+        padding: 0.75rem 0;
+    }
+
+    .tab {
+        font-size: 0.95rem;
+        padding: 0.25rem 0.4rem;
+    }
+}
+
 .container {
-    margin: 80px auto 0;
+    margin: 80px auto 0 auto;
     max-width: 800px;
     padding: 0 1rem;
     animation: fadeIn 1.2s ease;
@@ -69,16 +95,16 @@ h1 {
 p {
     font-size: 1.2rem;
     max-width: 600px;
-    margin: 0 auto 1rem;
+    margin: 0 auto 1rem auto;
     line-height: 1.6;
 }
 
 ul {
     font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto 1rem;
-    padding-left: 1.5rem;
     line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 1rem auto;
+    padding-left: 1.5rem;
     text-align: left;
 }
 
@@ -130,22 +156,40 @@ ul li {
     overflow: hidden;
     cursor: grab;
     user-select: none;
+    touch-action: pan-y;
+}
+
+.image-carousel:active {
+    cursor: grabbing;
+    user-drag: none;
 }
 
 .image-track {
     display: flex;
     gap: 1.5rem;
     will-change: transform;
+    pointer-events: auto;
+    touch-action: pan-y;
+    cursor: grab;
 }
 
 .image-track img {
     width: 180px;
     height: 180px;
     object-fit: contain;
+    user-drag: none;
+    -webkit-user-drag: none;
+    flex-shrink: 0;
     border-radius: 8px;
     user-select: none;
     pointer-events: none;
+    touch-action: none;
+
     transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.image-track:active {
+    cursor: grabbing;
 }
 
 .social-links {
@@ -159,6 +203,7 @@ ul li {
 .social-links img {
     width: 36px;
     height: 36px;
+    object-fit: contain;
     opacity: 0.85;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
@@ -168,24 +213,39 @@ ul li {
     opacity: 1;
 }
 
+@media (max-width: 600px) {
+    h1 { font-size: 2.2rem; }
+    p, ul { font-size: 1rem; }
+    .image-track img { width: 150px; }
+    .social-links img { width: 30px; height: 30px; }
+}
+
 .accomplishments-wrapper {
+    margin-top: 2rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 3rem;
     max-width: 1100px;
-    margin: 2rem auto 0;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0 1rem;
 }
 
-.side-mascot {
-    width: 220px;
+.accomplishments-mascot {
+    width: 260px;
     max-width: 30vw;
-    margin-right: auto;
+    height: auto;
+    user-select: none;
+    pointer-events: none;
+    flex-shrink: 0;
 }
 
 .accomplishments {
     position: relative;
+    flex: 1;
     max-width: 700px;
-    margin: 0 auto;
+    margin-top: 3rem;
     background-color: var(--panel);
     border-radius: 12px;
     overflow: hidden;
@@ -199,7 +259,7 @@ ul li {
 .accomplishment-slide {
     min-width: 100%;
     padding: 2rem;
-    text-align: center;
+    box-sizing: border-box;
 }
 
 .accomplishment-slide img {
@@ -235,10 +295,20 @@ ul li {
     font-size: 2rem;
     cursor: pointer;
     opacity: 0.8;
+    transition: opacity 0.2s ease;
 }
 
-.accomplishments-arrow.left { left: 16px; }
-.accomplishments-arrow.right { right: 16px; }
+.accomplishments-arrow:hover {
+    opacity: 1;
+}
+
+.accomplishments-arrow.left {
+    left: 16px;
+}
+
+.accomplishments-arrow.right {
+    right: 16px;
+}
 
 .accomplishments-dots {
     display: flex;
@@ -253,6 +323,7 @@ ul li {
     background-color: #64748b;
     border-radius: 50%;
     cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.25s ease;
 }
 
 .accomplishments-dots span.active {
@@ -260,14 +331,81 @@ ul li {
     transform: scale(1.2);
 }
 
+@media (max-width: 600px) {
+    .accomplishments-wrapper {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .accomplishments-mascot {
+        width: 200px;
+        max-width: 70%;
+        margin-bottom: 0.5rem;
+    }
+
+    .accomplishments {
+        max-width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    .accomplishments-track {
+        width: 100%;
+    }
+
+    .accomplishment-slide {
+        min-width: 100%;
+        padding: 1rem 0.75rem;
+    }
+
+    .accomplishment-slide h2 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .accomplishment-slide p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .accomplishment-slide img {
+        margin-bottom: 0.75rem;
+    }
+
+    .video-embed {
+        margin: 0.75rem auto;
+        border-radius: 10px;
+    }
+
+    .video-embed iframe {
+        height: 180px;
+    }
+
+    .accomplishments-arrow {
+        font-size: 1.6rem;
+        bottom: 8px;
+    }
+
+    .accomplishments-dots {
+        padding-bottom: 0.75rem;
+    }
+
+    .accomplishments-dots span {
+        width: 8px;
+        height: 8px;
+    }
+}
+
 .projects-layout {
     display: flex;
+    align-items: center;
     gap: 3rem;
     margin-top: 2rem;
 }
 
 .projects-image {
     width: 260px;
+    max-width: 100%;
     flex-shrink: 0;
 }
 
@@ -283,18 +421,17 @@ ul li {
 }
 
 @media (max-width: 768px) {
-    h1 { font-size: 2.2rem; }
-    p, ul { font-size: 1rem; }
-
-    .accomplishments-wrapper,
     .projects-layout {
         flex-direction: column;
         align-items: center;
+        text-align: center;
     }
 
-    .side-mascot,
     .projects-image {
         width: 220px;
-        margin: 0 auto;
+    }
+
+    .projects-content ul {
+        text-align: left;
     }
 }
