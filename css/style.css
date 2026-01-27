@@ -417,3 +417,9 @@ ul li {
     }
 }
 
+hr {
+    border: none;
+    height: 1px;
+    background-color: #64748b;
+    margin: 1rem 0;
+}
