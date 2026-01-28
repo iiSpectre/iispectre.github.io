@@ -468,17 +468,3 @@ hr {
     opacity: 1;
     transform: scale(1.05);
 }
-
-.accomplishments-track {
-    pointer-events: none;
-}
-
-.accomplishment-slide {
-    pointer-events: none;
-}
-
-.accomplishments-arrow,
-.accomplishments-dots,
-.accomplishments-dots span {
-    pointer-events: auto;
-}
