@@ -11,8 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const carousel = document.querySelector('.image-carousel');
     const track = document.querySelector('.image-track');
-    if (!track) return;
+    if (!carousel || !track) return;
 
     let imgs = Array.from(track.children);
 
@@ -88,6 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
         state.lastTime = performance.now();
         state.velocity = 0;
         state.lastInteraction = Date.now();
+
+        carousel.classList.add('dragging');
     };
 
     const dragMove = x => {
@@ -108,17 +111,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const endDrag = () => {
-    if (!state.isDragging) return;
-    state.isDragging = false;
-    state.lastInteraction = Date.now();
+        if (!state.isDragging) return;
+        state.isDragging = false;
+        state.lastInteraction = Date.now();
 
-    if (Math.abs(state.velocity) < 0.01) {
-        state.velocity = 0.05 * (Math.random() > 0.5 ? 1 : -1);
-    }
+        carousel.classList.remove('dragging');
 
-    startMomentum();
-    startIdle();
-};
+        if (Math.abs(state.velocity) < 0.01) {
+            state.velocity = 0.05 * (Math.random() > 0.5 ? 1 : -1);
+        }
+
+        startMomentum();
+        startIdle();
+    };
 
     const startMomentum = () => {
         const frame = () => {
@@ -134,7 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
             state.momentumRaf = requestAnimationFrame(frame);
         };
 
-        if (!state.momentumRaf) state.momentumRaf = requestAnimationFrame(frame);
+        if (!state.momentumRaf) {
+            state.momentumRaf = requestAnimationFrame(frame);
+        }
     };
 
     const startIdle = () => {
@@ -157,15 +164,22 @@ document.addEventListener('DOMContentLoaded', () => {
         state.idleRaf = requestAnimationFrame(frame);
     };
 
-    track.addEventListener('pointerdown', e => {
-        track.setPointerCapture(e.pointerId);
+    carousel.addEventListener('pointerdown', e => {
+        if (e.button !== 0) return;
+        if (!e.isPrimary) return;
+
+        carousel.setPointerCapture(e.pointerId);
         startDrag(e.clientX);
     });
 
-    track.addEventListener('pointermove', e => dragMove(e.clientX));
-    track.addEventListener('pointerup', endDrag);
-    track.addEventListener('pointercancel', endDrag);
-    track.addEventListener('pointerleave', endDrag);
+    carousel.addEventListener('pointermove', e => {
+        if (!state.isDragging) return;
+        dragMove(e.clientX);
+    });
+
+    carousel.addEventListener('pointerup', endDrag);
+    carousel.addEventListener('pointercancel', endDrag);
+    carousel.addEventListener('pointerleave', endDrag);
 
     calcWidth();
     apply();
