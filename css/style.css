@@ -491,15 +491,14 @@ hr {
     background-color: var(--panel);
 }
 
-.bugdroid-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-    padding: 2rem;
+.bugdroid-text {
+    max-width: 700px;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.bugdroid-text h2 {
+    margin-bottom: 0.5rem;
 }
 
 .bugdroid-overlay h2,
