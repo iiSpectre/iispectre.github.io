@@ -427,18 +427,6 @@ hr {
     margin: 1rem 0;
 }
 
-.container a {
-    color: #9ca3af;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.container a:hover {
-    color: #38bdf8;
-    transform: scale(1.05);
-}
-
 .projects-image img {
     width: 100%;
     height: auto;
@@ -547,4 +535,16 @@ hr {
 .bugdroid-dots span.active {
     background-color: var(--accent);
     transform: scale(1.2);
+}
+
+a {
+    color: #9ca3af;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+a:hover {
+    color: #38bdf8;
+    transform: scale(1.05);
 }
