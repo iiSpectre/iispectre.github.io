@@ -549,7 +549,7 @@ a:hover {
     transform: scale(1.05);
 }
 
-img {
+bugdroid-track img {
     max-width: 100%;
     border-radius: 8px;
     margin-bottom: 1rem;
