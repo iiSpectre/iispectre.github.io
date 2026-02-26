@@ -470,6 +470,7 @@ hr {
 .bugdroid-track {
     display: flex;
     transition: transform 0.5s ease;
+    overflow: hidden;
 }
 
 .bugdroid-track img {
