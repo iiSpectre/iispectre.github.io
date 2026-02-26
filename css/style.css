@@ -477,6 +477,8 @@ hr {
     height: 400px;
     object-fit: contain;
     background-color: var(--panel);
+    border-radius: 8px;
+    margin-bottom: 1rem;
 }
 
 .bugdroid-text {
@@ -547,10 +549,4 @@ a {
 a:hover {
     color: #38bdf8;
     transform: scale(1.05);
-}
-
-.bugdroid-track img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin-bottom: 1rem;
 }
