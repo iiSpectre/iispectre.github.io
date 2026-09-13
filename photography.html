@@ -1,33 +1,85 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dev</title>
+  <title>Photography - iiSpectre</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="icon" href="/Media/favicon.png" type="image/png">
   <link rel="stylesheet" href="/css/style.css">
-  <meta property="og:title" content="About Me - iiSpectre">
-  <meta property="og:description" content="An overview of myself and my interests!">
+
+  <meta property="og:title" content="Photography - iiSpectre">
+  <meta property="og:description" content="website">
   <meta property="og:image" content="https://iispectre.com/Media/favicon.png">
-  <meta property="og:url" content="https://iispectre.com">
+  <meta property="og:url" content="https://iispectre.com/photography">
   <meta property="og:type" content="website">
 </head>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C0WR4M4B6X"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-C0WR4M4B6X');
-</script>
-  
 <body>
 
-    <div id="nav-placeholder"></div>
-    <script src="/js/nav.js"></script>
+<div id="nav-placeholder"></div>
 
-    <div class="container">
+<div class="container">
+
+  <h1>Photography</h1>
+
+  <p>
+    A collection of photographs I've taken.
+  </p>
+
+  <div class="photography-wrapper">
+
+    <div class="photography">
+
+      <div class="photography-track" id="photographyTrack">
+
+        <div class="photography-slide">
+          <img
+            src="/Media/Photography/photo1.jpg"
+            alt="Photography sample 1"
+          >
+        </div>
+
+        <div class="photography-slide">
+          <img
+            src="/Media/Photography/photo2.jpg"
+            alt="Photography sample 2"
+          >
+        </div>
+
+      </div>
+
+      <button
+        class="photography-arrow left"
+        id="photographyPrev"
+        aria-label="Previous photograph"
+        type="button">
+        ‹
+      </button>
+
+      <button
+        class="photography-arrow right"
+        id="photographyNext"
+        aria-label="Next photograph"
+        type="button">
+        ›
+      </button>
+
+      <div
+        class="photography-dots"
+        id="photographyDots"
+        aria-label="Photography navigation">
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="/js/nav.js"></script>
+<script src="/js/photography.js"></script>
 
 </body>
 </html>
