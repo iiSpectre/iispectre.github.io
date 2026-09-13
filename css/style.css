@@ -626,3 +626,201 @@ a:hover {
         transition-duration: 0.01ms !important;
     }
 }
+
+.photography-wrapper {
+    position: relative;
+    width: var(--wide-content-width);
+    margin: clamp(1.5rem, 4vw, 2rem) auto 0;
+    padding: 0;
+}
+
+.photography {
+    position: relative;
+    width: 100%;
+    max-width: clamp(700px, 75vw, 1100px);
+    margin: 0 auto;
+    background-color: var(--panel);
+    border-radius: clamp(8px, 1.5vw, 14px);
+    overflow: hidden;
+}
+
+.photography-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease;
+    will-change: transform;
+}
+
+.photography-slide {
+    min-width: 100%;
+    width: 100%;
+
+    padding:
+        clamp(0.5rem, 1.5vw, 1.25rem)
+        clamp(2.5rem, 5vw, 4.5rem);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photography-slide img {
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+    
+    height: clamp(300px, 60vw, 700px);
+
+    object-fit: contain;
+
+    border-radius: clamp(6px, 1vw, 10px);
+
+    user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.photography-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: clamp(26px, 3vw, 40px);
+    height: clamp(64px, 10vw, 110px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background-color: rgba(15, 23, 42, 0.78);
+
+    border: clamp(1px, 0.15vw, 2px) solid
+        rgba(229, 231, 235, 0.18);
+
+    border-radius: clamp(14px, 2vw, 22px);
+
+    color: var(--text);
+
+    font-size: clamp(1.2rem, 2vw, 1.75rem);
+    line-height: 1;
+
+    cursor: pointer;
+    opacity: 0.8;
+
+    z-index: 5;
+
+    transition:
+        opacity 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.photography-arrow:hover {
+    opacity: 1;
+    background-color: rgba(15, 23, 42, 0.95);
+}
+
+.photography-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.photography-arrow.left {
+    left: clamp(6px, 1.25vw, 18px);
+}
+
+.photography-arrow.right {
+    right: clamp(6px, 1.25vw, 18px);
+}
+
+.photography-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: clamp(0.3rem, 1vw, 0.5rem);
+
+    padding:
+        clamp(0.6rem, 1.5vw, 0.85rem)
+        0
+        clamp(0.75rem, 2vw, 1rem);
+}
+
+.photography-dots span {
+    width: clamp(7px, 1vw, 10px);
+    height: clamp(7px, 1vw, 10px);
+
+    background-color: #64748b;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.photography-dots span.active {
+    background-color: var(--accent);
+    transform: scale(1.2);
+}
+
+.photography-caption {
+    width: min(100%, 600px);
+
+    margin:
+        0 auto
+        clamp(0.75rem, 2vw, 1rem);
+
+    padding:
+        0 clamp(0.75rem, 2vw, 1.5rem);
+
+    font-size: clamp(0.85rem, 0.8rem + 0.25vw, 1rem);
+    line-height: var(--body-leading);
+
+    color: #9ca3af;
+}
+
+@media (max-width: 768px) {
+    .photography-wrapper {
+        width: min(100% - 2rem, 800px);
+    }
+
+    .photography {
+        width: 100%;
+        max-width: 100%;
+        border-radius: clamp(8px, 2vw, 12px);
+    }
+
+    .photography-slide {
+        padding:
+            clamp(0.35rem, 1.5vw, 0.75rem)
+            clamp(2rem, 8vw, 3rem);
+    }
+
+    .photography-slide img {
+        height: clamp(260px, 75vw, 500px);
+        border-radius: clamp(5px, 1vw, 8px);
+    }
+
+    .photography-arrow {
+        width: clamp(24px, 7vw, 32px);
+        height: clamp(58px, 16vw, 80px);
+
+        font-size: clamp(1rem, 4vw, 1.35rem);
+    }
+
+    .photography-arrow.left {
+        left: clamp(5px, 1.5vw, 8px);
+    }
+
+    .photography-arrow.right {
+        right: clamp(5px, 1.5vw, 8px);
+    }
+}
