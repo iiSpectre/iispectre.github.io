@@ -8,24 +8,26 @@ const slides = document.querySelectorAll(".photography-slide");
 let currentSlide = 0;
 
 
-slides.forEach((_, index) => {
-    const dot = document.createElement("span");
+for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement("button");
 
+    dot.type = "button";
+    dot.className = "photography-dot";
     dot.setAttribute(
         "aria-label",
-        `Go to photograph ${index + 1}`
+        `Go to photograph ${i + 1}`
     );
 
     dot.addEventListener("click", () => {
-        currentSlide = index;
+        currentSlide = i;
         updatePhotography();
     });
 
     dotsContainer.appendChild(dot);
-});
+}
 
 
-const dots = dotsContainer.querySelectorAll("span");
+const dots = document.querySelectorAll(".photography-dot");
 
 
 function updatePhotography() {
