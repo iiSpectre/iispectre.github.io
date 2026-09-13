@@ -753,4 +753,43 @@ a:hover {
     .photography-arrow.right {
         right: 3px;
     }
+
+.photography-dots {
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: clamp(0.35rem, 1vw, 0.6rem);
+
+    padding:
+        clamp(0.65rem, 1.5vw, 0.9rem)
+        0
+        clamp(0.8rem, 2vw, 1rem);
+}
+
+.photography-dots span {
+    display: block;
+
+    width: clamp(8px, 1vw, 11px);
+    height: clamp(8px, 1vw, 11px);
+
+    flex: 0 0 auto;
+
+    background-color: #64748b;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.photography-dots span.active {
+    background-color: var(--accent);
+    transform: scale(1.2);
+}
 }
