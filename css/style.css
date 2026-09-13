@@ -755,30 +755,30 @@ a:hover {
     }
 
 .photography-dots {
-    position: relative;
-    z-index: 10;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     gap: clamp(0.35rem, 1vw, 0.6rem);
 
     padding:
         clamp(0.65rem, 1.5vw, 0.9rem)
         0
-        clamp(0.8rem, 2vw, 1rem);
+        clamp(0.75rem, 2vw, 1rem);
 }
 
-.photography-dots span {
+.photography-dot {
     display: block;
 
     width: clamp(8px, 1vw, 11px);
     height: clamp(8px, 1vw, 11px);
 
-    flex: 0 0 auto;
+    min-width: clamp(8px, 1vw, 11px);
+    min-height: clamp(8px, 1vw, 11px);
+
+    padding: 0;
 
     background-color: #64748b;
+    border: none;
     border-radius: 50%;
 
     cursor: pointer;
@@ -788,8 +788,7 @@ a:hover {
         transform 0.25s ease;
 }
 
-.photography-dots span.active {
+.photography-dot.active {
     background-color: var(--accent);
     transform: scale(1.2);
-}
 }
