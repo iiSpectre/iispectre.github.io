@@ -630,15 +630,16 @@ a:hover {
 .photography-wrapper {
     position: relative;
     width: var(--wide-content-width);
-    margin: clamp(1.5rem, 4vw, 2rem) auto 0;
+    margin: clamp(1.5rem, 4vw, 2rem) auto clamp(1rem, 2vw, 1.5rem);
     padding: 0;
 }
 
 .photography {
     position: relative;
     width: 100%;
-    max-width: clamp(700px, 75vw, 1100px);
+    max-width: clamp(850px, 90vw, 1400px);
     margin: 0 auto;
+
     background-color: var(--panel);
     border-radius: clamp(8px, 1.5vw, 14px);
     overflow: hidden;
@@ -656,8 +657,8 @@ a:hover {
     width: 100%;
 
     padding:
-        clamp(0.5rem, 1.5vw, 1.25rem)
-        clamp(2.5rem, 5vw, 4.5rem);
+        clamp(0.5rem, 1.5vw, 1rem)
+        clamp(2rem, 3vw, 3.5rem);
 
     display: flex;
     align-items: center;
@@ -669,8 +670,11 @@ a:hover {
 
     width: 100%;
     max-width: 100%;
-    
-    height: clamp(300px, 60vw, 700px);
+
+    height: min(
+        clamp(300px, 65vw, 750px),
+        calc(100vh - clamp(220px, 28vh, 300px))
+    );
 
     object-fit: contain;
 
@@ -679,10 +683,6 @@ a:hover {
     user-select: none;
     pointer-events: none;
     -webkit-user-drag: none;
-
-    transition:
-        transform 0.25s ease,
-        opacity 0.25s ease;
 }
 
 .photography-arrow {
@@ -691,7 +691,13 @@ a:hover {
     transform: translateY(-50%);
 
     width: clamp(24px, 2.5vw, 36px);
-    height: clamp(260px, 55vw, 680px);
+
+    height: calc(
+        min(
+            clamp(300px, 65vw, 750px),
+            calc(100vh - clamp(220px, 28vh, 300px))
+        ) - clamp(1rem, 3vw, 2rem)
+    );
 
     display: flex;
     align-items: center;
@@ -737,33 +743,17 @@ a:hover {
     right: clamp(4px, 0.5vw, 8px);
 }
 
-
-@media (max-width: 768px) {
-    .photography-arrow {
-        width: clamp(22px, 6vw, 30px);
-        height: clamp(220px, 70vw, 500px);
-        border-radius: clamp(10px, 2vw, 16px);
-        font-size: clamp(1rem, 4vw, 1.3rem);
-    }
-
-    .photography-arrow.left {
-        left: 3px;
-    }
-
-    .photography-arrow.right {
-        right: 3px;
-    }
-
 .photography-dots {
     display: flex;
     align-items: center;
     justify-content: center;
+
     gap: clamp(0.35rem, 1vw, 0.6rem);
 
     padding:
         clamp(0.65rem, 1.5vw, 0.9rem)
         0
-        clamp(0.75rem, 2vw, 1rem);
+        clamp(0.9rem, 2vw, 1.25rem);
 }
 
 .photography-dot {
@@ -791,4 +781,53 @@ a:hover {
 .photography-dot.active {
     background-color: var(--accent);
     transform: scale(1.2);
+}
+
+
+@media (max-width: 768px) {
+    .photography-wrapper {
+        width: min(100% - 1rem, 800px);
+        margin-bottom: clamp(0.75rem, 3vw, 1rem);
+    }
+
+    .photography {
+        width: 100%;
+        max-width: 100%;
+        border-radius: clamp(8px, 2vw, 12px);
+    }
+
+    .photography-slide {
+        padding:
+            clamp(0.35rem, 1.5vw, 0.75rem)
+            clamp(1.75rem, 6vw, 2.5rem);
+    }
+
+    .photography-slide img {
+        height: min(
+            clamp(260px, 70vw, 500px),
+            calc(100vh - 220px)
+        );
+    }
+
+    .photography-arrow {
+        width: clamp(22px, 6vw, 30px);
+
+        height: calc(
+            min(
+                clamp(260px, 70vw, 500px),
+                calc(100vh - 220px)
+            ) - clamp(0.7rem, 3vw, 1.25rem)
+        );
+
+        border-radius: clamp(10px, 2vw, 16px);
+        font-size: clamp(1rem, 4vw, 1.3rem);
+    }
+
+    .photography-arrow.left {
+        left: 3px;
+    }
+
+    .photography-arrow.right {
+        right: 3px;
+    }
 }
