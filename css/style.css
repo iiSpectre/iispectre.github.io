@@ -690,8 +690,8 @@ a:hover {
     top: 50%;
     transform: translateY(-50%);
 
-    width: clamp(26px, 3vw, 40px);
-    height: clamp(64px, 10vw, 110px);
+    width: clamp(24px, 2.5vw, 36px);
+    height: clamp(260px, 55vw, 680px);
 
     display: flex;
     align-items: center;
@@ -704,16 +704,14 @@ a:hover {
     border: clamp(1px, 0.15vw, 2px) solid
         rgba(229, 231, 235, 0.18);
 
-    border-radius: clamp(14px, 2vw, 22px);
+    border-radius: clamp(12px, 1.5vw, 20px);
 
     color: var(--text);
-
-    font-size: clamp(1.2rem, 2vw, 1.75rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.6rem);
     line-height: 1;
 
     cursor: pointer;
     opacity: 0.8;
-
     z-index: 5;
 
     transition:
@@ -728,99 +726,31 @@ a:hover {
 }
 
 .photography-arrow:active {
-    transform: translateY(-50%) scale(0.95);
+    transform: translateY(-50%) scale(0.98);
 }
 
 .photography-arrow.left {
-    left: clamp(6px, 1.25vw, 18px);
+    left: clamp(4px, 0.5vw, 8px);
 }
 
 .photography-arrow.right {
-    right: clamp(6px, 1.25vw, 18px);
+    right: clamp(4px, 0.5vw, 8px);
 }
 
-.photography-dots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: clamp(0.3rem, 1vw, 0.5rem);
-
-    padding:
-        clamp(0.6rem, 1.5vw, 0.85rem)
-        0
-        clamp(0.75rem, 2vw, 1rem);
-}
-
-.photography-dots span {
-    width: clamp(7px, 1vw, 10px);
-    height: clamp(7px, 1vw, 10px);
-
-    background-color: #64748b;
-    border-radius: 50%;
-
-    cursor: pointer;
-
-    transition:
-        background-color 0.25s ease,
-        transform 0.25s ease;
-}
-
-.photography-dots span.active {
-    background-color: var(--accent);
-    transform: scale(1.2);
-}
-
-.photography-caption {
-    width: min(100%, 600px);
-
-    margin:
-        0 auto
-        clamp(0.75rem, 2vw, 1rem);
-
-    padding:
-        0 clamp(0.75rem, 2vw, 1.5rem);
-
-    font-size: clamp(0.85rem, 0.8rem + 0.25vw, 1rem);
-    line-height: var(--body-leading);
-
-    color: #9ca3af;
-}
 
 @media (max-width: 768px) {
-    .photography-wrapper {
-        width: min(100% - 2rem, 800px);
-    }
-
-    .photography {
-        width: 100%;
-        max-width: 100%;
-        border-radius: clamp(8px, 2vw, 12px);
-    }
-
-    .photography-slide {
-        padding:
-            clamp(0.35rem, 1.5vw, 0.75rem)
-            clamp(2rem, 8vw, 3rem);
-    }
-
-    .photography-slide img {
-        height: clamp(260px, 75vw, 500px);
-        border-radius: clamp(5px, 1vw, 8px);
-    }
-
     .photography-arrow {
-        width: clamp(24px, 7vw, 32px);
-        height: clamp(58px, 16vw, 80px);
-
-        font-size: clamp(1rem, 4vw, 1.35rem);
+        width: clamp(22px, 6vw, 30px);
+        height: clamp(220px, 70vw, 500px);
+        border-radius: clamp(10px, 2vw, 16px);
+        font-size: clamp(1rem, 4vw, 1.3rem);
     }
 
     .photography-arrow.left {
-        left: clamp(5px, 1.5vw, 8px);
+        left: 3px;
     }
 
     .photography-arrow.right {
-        right: clamp(5px, 1.5vw, 8px);
+        right: 3px;
     }
 }
